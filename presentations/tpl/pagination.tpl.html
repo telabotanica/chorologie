@@ -1,0 +1,14 @@
+<!-- Squelette de paginateur prêt pour Bootstrap 3 -->
+<ul class="pagination" id="Jožin">
+	<li><a href="<?= $url_module ?>&page=<?= max(1, $page - 1) ?>&nbParPage=<?= $nbParPage ?>&lettre=<?= $lettre ?>">&lt;</a></li>
+	<?php foreach ($pages as $p): ?>
+	<li <?php if($p == $page): ?>class="active"<?php endif; ?>>
+		<?php if($p != false): ?>
+			<a href="<?= $url_module ?>&page=<?= $p ?>&nbParPage=<?= $nbParPage ?>&lettre=<?= $lettre ?>"><?= $p ?></a>
+		<?php else: ?>
+			<a href="#" onClick="return false;">...</a>
+		<?php endif; ?>
+	</li>
+	<?php endforeach; ?>
+	<li><a href="<?= $url_module ?>&page=<?= min($page_max, $page + 1) ?>&nbParPage=<?= $nbParPage ?>&lettre=<?= $lettre ?>">&gt;</a></li>
+</ul>

@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+
+p#chorologie_pied_page {
+	margin-top: 20px;
+	text-align: center;
+}
+
+#chorologie .pagination {
+	margin: 0;
+	vertical-align: top;
+}
+
+#paginateur {
+	margin-bottom: 5px;
+	margin-top: 10px;
+}

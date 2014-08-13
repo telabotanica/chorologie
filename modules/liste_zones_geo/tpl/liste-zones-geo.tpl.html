@@ -1,0 +1,75 @@
+<h3>
+<?php if($nombre > 0): ?>
+	Liste des <?= $type ?>
+	<?= $debut ?> à <?= min($fin, $nombre_total) ?> sur <?= $nombre_total ?>
+	<?php if($lettre != ''): ?>
+		commençant par la lettre <?= $lettre ?>
+	<?php endif; ?>
+<?php else: ?>
+	Aucun résultat
+<?php endif; ?>
+</h3>
+
+<label>Cliquer sur une lettre pour faire apparaître la liste des <?= $type ?></label>
+<br/>
+<a href="<?= $url_module ?>&nbParPage=<?= $nbParPage ?>">tous</a>
+<?php foreach($lettres as $l): ?>
+	<a href="<?= $url_module ?>&nbParPage=<?= $nbParPage ?>&lettre=<?= $l ?>"><?= $l ?></a>
+<?php endforeach; ?>
+
+<form method="get" action="<?= $url_base ?>" class="form form-inline">
+	<input type="hidden" value="<?= $module ?>" name="module" />
+	<input type="hidden" value="<?= $lettre ?>" name="lettre" />
+	<div id="paginateur">
+		Page
+		<?= $paginateur ?>
+		<div class="form-group">
+			- afficher
+			<select id="select-nb-par-page" name="nbParPage" class="form-control">
+				<option value="">tout</option>
+				<?php foreach($tailles_page as $tp): ?>
+				<option
+					<?php if($nbParPage == $tp): ?>selected<?php endif; ?> value="<?= $tp ?>">
+					par <?= $tp ?>
+				</option>
+				<?php endforeach; ?>
+			</select>
+		</div>
+	</div>
+</form>
+
+<span class="indication">Cliquez sur le nom pour faire apparaître la liste des taxons observés</span>
+<br/>
+
+<table class="table">
+	<thead>
+		<tr>
+			<?php foreach($entetes as $entete => $titre): ?>
+			<td>
+				<?= $titre ?>
+			</td>
+			<?php endforeach; ?>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach($zones as $zone): ?>
+		<tr>
+			<?php foreach($entetes as $entete): ?>
+			<td>
+				<?php if($entete == 'nom'): ?>
+					<a href="<?= $url_base ?>?module=liste-taxons&zone-geo=<?= $zone['code'] ?>"><?= $zone[$entete] ?></a>
+				<?php else: ?>
+					<?= $zone[$entete] ?>
+				<?php endif; ?>
+			</td>
+			<?php endforeach; ?>
+		</tr>
+		<?php endforeach; ?>
+	</tbody>
+</table>
+
+Note : les noms des <?= $type ?> apparaissent sans article (Exemple : La Garde -> Garde).
+
+<script type="text/javascript">
+	$(document).trigger('zones-geo_charge');
+</script>
