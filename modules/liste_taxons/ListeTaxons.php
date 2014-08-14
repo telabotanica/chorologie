@@ -1,6 +1,6 @@
 <?php
 /**
- * Affiche la liste paginée des zones géographiques disponibles
+ * Affiche la liste paginée des taxons disponibles
  *
  * @category	PHP 5.2
  * @package		chorologie
@@ -12,9 +12,9 @@
  * @license		http://www.cecill.info/licences/Licence_CeCILL_V2-fr.txt Licence CECILL-v2
  * @version		$Id$
  */
-class ListeZonesGeo extends ModuleControleur {
+class ListeTaxons extends ModuleControleur {
 
-	/** API "ZonesGeo" */
+	/** API "Taxons" */
 	protected $api;
 
 	protected $page;
@@ -22,7 +22,7 @@ class ListeZonesGeo extends ModuleControleur {
 	protected $lettre;
 
 	protected function init() {
-		$this->api = new ZonesGeo($this->conteneur);
+		$this->api = new Taxons($this->conteneur);
 	}
 
 	public function executer() {
@@ -43,35 +43,40 @@ class ListeZonesGeo extends ModuleControleur {
 		$donnees['url_base'] = $this->obtenirUrlBase();
 		$donnees['url_module'] = $this->obtenirUrlModule();
 
-		// Récupération de la liste des zones géographiques
+		// URL pour les liens eFlore
+		$donnees['url_base_eflore_bdtfx'] = $this->conteneur->getParametre('url_base_eflore_bdtfx');
+
+		// Récupération de la liste des taxons
 		$depart = ($this->page - 1) * $this->nbParPage;
-		$zones = $this->api->listeZones($depart, $this->nbParPage, $this->lettre);
+		$taxons = $this->api->listeTaxons($depart, $this->nbParPage, $this->lettre);
 
 		// Pagination
-		$donnees['nombre'] = min($zones['entete']['limite'], $zones['entete']['total']);
-		$donnees['nombre_total'] = $zones['entete']['total'];
-		$donnees['debut'] = $zones['entete']['depart'];
+		$donnees['nombre'] = min($taxons['entete']['limite'], $taxons['entete']['total']);
+		$donnees['nombre_total'] = $taxons['entete']['total'];
+		$donnees['debut'] = $taxons['entete']['depart'];
 		$donnees['fin'] = $donnees['debut'] + $donnees['nombre'];
 
-		$nbPages = Pagination::nombreDePagesSelonResultats($donnees['nombre_total'], $zones['entete']['limite']);
+		$nbPages = Pagination::nombreDePagesSelonResultats($donnees['nombre_total'], $taxons['entete']['limite']);
 		$donnees['pages'] = Pagination::tableauPages($this->page, $nbPages, 5);
 		$donnees['page_max'] = $nbPages;
 		$donnees['paginateur'] = $this->getVueCommune('pagination', $donnees);
 
+		//echo "TAX : " . print_r($taxons, true) . " (" . count($taxons['resultat']) . ")<br/>";
 		// préparation du tableau
 		$donnees['entetes'] = array();
-		$donnees['zones'] = array();
-		if (isset($zones['resultat']) && count($zones['resultat']) > 0) {
-			$premiereClef = reset($zones['resultat']);
+		$donnees['taxons'] = array();
+		if (isset($taxons['resultat']) && count($taxons['resultat']) > 0) {
+			$premiereClef = reset($taxons['resultat']);
 			// certains résultats de ws sont associatifs (caca), d'autres non :-(
 			if (is_array($premiereClef)) {
 				$premierResultat = $premiereClef;
 			} else {
-				$premierResultat = $zones['resultat'][$premiereClef];
+				$premierResultat = $taxons['resultat'][$premiereClef];
 			}
 			$donnees['entetes'] = array_keys($premierResultat);
-			$donnees['zones'] = $zones['resultat'];
+			$donnees['taxons'] = $taxons['resultat'];
 		}
+		//echo "DON TAX : " . print_r($donnees['taxons'], true) . "<br/>";
 
 		// de A à Z
 		$donnees['lettres'] = array();
@@ -80,9 +85,7 @@ class ListeZonesGeo extends ModuleControleur {
 		}
 		// possibilités de tailles de page
 		$donnees['tailles_page'] = array(10, 20, 50, 100);
-		// Vocabulaire
-		$donnees['type'] = $this->conteneur->getParametre("type_zone");
 
-		$this->setSortie(self::RENDU_CORPS, $this->getVue('liste-zones-geo', $donnees));
+		$this->setSortie(self::RENDU_CORPS, $this->getVue('liste-taxons', $donnees));
 	}
 }

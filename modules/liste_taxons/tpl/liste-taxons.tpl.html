@@ -1,6 +1,6 @@
 <h3>
 <?php if($nombre > 0): ?>
-	Liste des <?= $type ?>
+	Liste des taxons
 	<?= $debut ?> à <?= min($fin, $nombre_total) ?> sur <?= $nombre_total ?>
 	<?php if($lettre != ''): ?>
 		commençant par <?= $lettre ?>
@@ -10,7 +10,7 @@
 <?php endif; ?>
 </h3>
 
-<label>Cliquer sur une lettre pour faire apparaître la liste des <?= $type ?></label>
+<label>Cliquer sur une lettre pour faire apparaître la liste des taxons</label>
 <br/>
 <a href="<?= $url_module ?>&nbParPage=<?= $nbParPage ?>">tous</a>
 <?php foreach($lettres as $l): ?>
@@ -38,31 +38,33 @@
 	</div>
 </form>
 
-<span class="indication">Cliquez sur le nom pour faire apparaître la liste des taxons observés</span>
+<span class="indication">Cliquez sur le nom pour faire apparaître la carte de répartition</span>
 <br/>
 
 <table class="table">
 	<thead>
 		<tr>
-			<td>Code</td>
-			<td><?= ucfirst(substr($type, 0, -1)) ?></td>
+			<td>Nom latin</td>
+			<td>Nom vernaculaire</td>
+			<td>Lien vers eFlore</td>
 		</tr>
 	</thead>
 	<tbody>
-		<?php foreach($zones as $zone): ?>
+		<?php foreach($taxons as $taxon): ?>
 		<tr>
 			<td>
-				<?= $zone['code'] ?>
+				<a href="<?= $url_base ?>?module=fiche-taxon&taxon=<?= $taxon['num_nom'] ?>"><?= $taxon['nom_sci'] ?></a>
 			</td>
 			<td>
-				<a href="<?= $url_base ?>?module=liste-taxons&zone-geo=<?= $zone['code'] ?>"><?= $zone['nom'] ?></a>
+				<?= $taxon['nom_commun'] ?>
+			</td>
+			<td>
+				<a href="<?= $url_base_eflore_bdtfx ?><?= $taxon['num_nom'] ?>">BDNFFnn<?= $taxon['num_nom'] ?></a>
 			</td>
 		</tr>
 		<?php endforeach; ?>
 	</tbody>
 </table>
-
-Note : les noms apparaissent sans article (Exemple : La Garde -> Garde).
 
 <script type="text/javascript">
 	$(document).trigger('zones-geo_charge');
