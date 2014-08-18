@@ -54,10 +54,6 @@ class Conteneur {
 		}
 		return $tableau;
 	}
-	public function getApiZonesGeo() {
-		$images = new Images();
-		return $images;
-	}
 
 	public function getBdd() {
 		if (!isset($this->partages['Bdd'])){

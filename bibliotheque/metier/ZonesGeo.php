@@ -11,7 +11,7 @@
  * @license		http://www.cecill.info/licences/Licence_CeCILL_V2-fr.txt Licence CECILL-v2
  * @version		$Id$
  */
-class ZonesGeo extends Chorologie {
+class ZonesGeo extends ChorologieDAO {
 
 	/**
 	 * Appelle le toileservice pour obtenir la sous-partie de la liste des zones
