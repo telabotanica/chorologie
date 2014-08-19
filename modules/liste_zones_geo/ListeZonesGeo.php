@@ -17,10 +17,6 @@ class ListeZonesGeo extends ModuleControleur {
 	/** API "ZonesGeo" */
 	protected $api;
 
-	protected $page;
-	protected $nbParPage;
-	protected $lettre;
-
 	protected function init() {
 		$this->api = new ZonesGeo($this->conteneur);
 	}
@@ -44,8 +40,8 @@ class ListeZonesGeo extends ModuleControleur {
 		$donnees['url_module'] = $this->obtenirUrlModule();
 
 		// Récupération de la liste des zones géographiques
-		$depart = ($this->page - 1) * $this->nbParPage;
-		$zones = $this->api->listeZones($depart, $this->nbParPage, $this->lettre);
+		$depart = ($parametresUtilises['page'] - 1) * $parametresUtilises['nbParPage'];
+		$zones = $this->api->listeZones($depart, $parametresUtilises['nbParPage'], $parametresUtilises['lettre']);
 
 		// Pagination
 		$donnees['nombre'] = min($zones['entete']['limite'], $zones['entete']['total']);
@@ -54,7 +50,7 @@ class ListeZonesGeo extends ModuleControleur {
 		$donnees['fin'] = $donnees['debut'] + $donnees['nombre'];
 
 		$nbPages = Pagination::nombreDePagesSelonResultats($donnees['nombre_total'], $zones['entete']['limite']);
-		$donnees['pages'] = Pagination::tableauPages($this->page, $nbPages, 5);
+		$donnees['pages'] = Pagination::tableauPages($parametresUtilises['page'], $nbPages, 5);
 		$donnees['page_max'] = $nbPages;
 		$donnees['paginateur'] = $this->getVueCommune('pagination', $donnees);
 
