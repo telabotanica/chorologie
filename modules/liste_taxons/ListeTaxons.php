@@ -20,6 +20,7 @@ class ListeTaxons extends ModuleControleur {
 	protected $page;
 	protected $nbParPage;
 	protected $lettre;
+	protected $zoneGeo;
 
 	protected function init() {
 		$this->api = new Taxons($this->conteneur);
@@ -31,7 +32,8 @@ class ListeTaxons extends ModuleControleur {
 		$parametresUtilises = $this->capturerParams(array(
 			'page' => 1,
 			'nbParPage' => 20,
-			'lettre' => null
+			'lettre' => null,
+			'zoneGeo' => null	
 		));
 
 		// Transmisison des paramètres au squelette
@@ -48,7 +50,7 @@ class ListeTaxons extends ModuleControleur {
 
 		// Récupération de la liste des taxons
 		$depart = ($this->page - 1) * $this->nbParPage;
-		$taxons = $this->api->listeTaxons($depart, $this->nbParPage, $this->lettre);
+		$taxons = $this->api->listeTaxons($depart, $this->nbParPage, $this->lettre, $this->zoneGeo);
 
 		// Pagination
 		$donnees['nombre'] = min($taxons['entete']['limite'], $taxons['entete']['total']);
