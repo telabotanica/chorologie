@@ -17,11 +17,6 @@ class ListeTaxons extends ModuleControleur {
 	/** API "Taxons" */
 	protected $api;
 
-	protected $page;
-	protected $nbParPage;
-	protected $lettre;
-	protected $zoneGeo;
-
 	protected function init() {
 		$this->api = new Taxons($this->conteneur);
 	}
@@ -33,7 +28,7 @@ class ListeTaxons extends ModuleControleur {
 			'page' => 1,
 			'nbParPage' => 20,
 			'lettre' => null,
-			'zoneGeo' => null	
+			'zone-geo' => null	
 		));
 
 		// Transmisison des paramètres au squelette
@@ -49,8 +44,8 @@ class ListeTaxons extends ModuleControleur {
 		$donnees['url_base_eflore_bdtfx'] = $this->conteneur->getParametre('url_base_eflore_bdtfx');
 
 		// Récupération de la liste des taxons
-		$depart = ($this->page - 1) * $this->nbParPage;
-		$taxons = $this->api->listeTaxons($depart, $this->nbParPage, $this->lettre, $this->zoneGeo);
+		$depart = ($parametresUtilises['page'] - 1) * $parametresUtilises['nbParPage'];
+		$taxons = $this->api->listeTaxons($depart, $parametresUtilises['nbParPage'], $parametresUtilises['lettre'], $parametresUtilises['zone-geo']);
 
 		// Pagination
 		$donnees['nombre'] = min($taxons['entete']['limite'], $taxons['entete']['total']);
