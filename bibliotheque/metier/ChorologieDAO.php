@@ -17,14 +17,21 @@ abstract class ChorologieDAO {
 	protected $conteneur;
 
 	/**
-	 * Accepte éventuellement un conteneur, pour choper le client REST entre
-	 * autres; sinon, prendra les éléments du Framework
+	 * Demande un conteneur, pour choper le client REST entre
+	 * autres
 	 * 
 	 * @param Conteneur $conteneur
 	 */
-	public function __construct(Conteneur $conteneur = null) {
+	public function __construct(Conteneur $conteneur) {
 		$this->conteneur = $conteneur;
 		$this->restClient = $conteneur->getRestClient();
+		$this->init();
+	}
+
+	/**
+	 * Ajustements post-constructeur
+	 */
+	protected function init() {
 	}
 
 	/**
