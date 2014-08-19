@@ -53,7 +53,7 @@ class ModuleControleur extends Controleur {
 	protected function init() {}
 
 	/**
-	 * Tente de récupérer un paramètre nommé $cle pour le placer dans $this->$cle;
+	 * Tente de récupérer un paramètre nommé $cle;
 	 * cherche dans $_GET, puis dans $_POST, et en dernier recours affecte la
 	 * valeur $defaut
 	 * 
@@ -61,14 +61,15 @@ class ModuleControleur extends Controleur {
 	 */
 	protected function capturerParam($cle, $defaut = null) {
 		if (isset($_GET[$cle])) {
-			$this->$cle = $_GET[$cle];
+			$param = $_GET[$cle];
 		} else {
 			if (isset($_POST[$cle])) {
-				$this->$cle = $_POST[$cle];
+				$param = $_POST[$cle];
 			} else {
-				$this->$cle = $defaut;
+				$param = $defaut;
 			}
 		}
+		return $param;
 	}
 
 	/**
@@ -82,8 +83,8 @@ class ModuleControleur extends Controleur {
 	protected function capturerParams(array $clesValeurs) {
 		$tableauRetour = array();
 		foreach ($clesValeurs as $cle => $valeur) {
-			$this->capturerParam($cle, $valeur);
-			$tableauRetour[$cle] = $this->$cle;
+			$param = $this->capturerParam($cle, $valeur);
+			$tableauRetour[$cle] = $param;
 		}
 		return $tableauRetour;
 	}
