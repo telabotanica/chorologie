@@ -77,7 +77,7 @@
 		<?php foreach($taxons as $taxon): ?>
 		<tr>
 			<td>
-				<a href="<?= $url_base ?>?module=fiche-taxon&taxon=<?= $taxon['num_nom'] ?>"><?= $taxon['nom_sci'] ?></a>
+				<a href="<?= $url_base ?>?module=carte-taxon&taxon=<?= $taxon['num_nom'] ?>&nom-sci=<?= $taxon['nom_sci'] ?>"><?= $taxon['nom_sci'] ?></a>
 			</td>
 			<td>
 				<?= $taxon['nom_commun'] ?>
