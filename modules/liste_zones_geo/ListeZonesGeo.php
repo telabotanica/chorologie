@@ -27,21 +27,32 @@ class ListeZonesGeo extends ModuleControleur {
 		$parametresUtilises = $this->capturerParams(array(
 			'page' => 1,
 			'nbParPage' => 20,
-			'lettre' => null
+			'lettre' => null,
+			'tri'	=> 'code',
+			'ordre' => 'ASC'	
 		));
 
 		// Transmisison des paramètres au squelette
 		$donnees = array_merge($donnees, $parametresUtilises);
 		$donnees['module'] = $this->obtenirNomModule();
-
+		
 		// URLs de base
 		// attention à l'ordre des appels de cette chierie
 		$donnees['url_base'] = $this->obtenirUrlBase();
 		$donnees['url_module'] = $this->obtenirUrlModule();
 
+		// Ajouts des urls de pagination et de tri
+		$donnees = array_merge($donnees, $this->obtenirUrlsBasePaginationEtColonnesTriables($parametresUtilises));
+		
+		// Urls de base pour les colonnes triables
+		$urls_tri = $this->obtenirUrlBaseColonnesTriables($parametresUtilises);
+		$donnees['url_module_sans_tri'] = $urls_tri['url_module_sans_tri'];
+		$donnees['ordre_tri_inverse'] = $urls_tri['ordre_tri_inverse'];
+
 		// Récupération de la liste des zones géographiques
 		$depart = ($parametresUtilises['page'] - 1) * $parametresUtilises['nbParPage'];
-		$zones = $this->api->listeZones($depart, $parametresUtilises['nbParPage'], $parametresUtilises['lettre']);
+		$zones = $this->api->listeZones($depart, $parametresUtilises['nbParPage'], $parametresUtilises['lettre'], 
+										$parametresUtilises['tri'], $parametresUtilises['ordre']);
 
 		// Pagination
 		$donnees['nombre'] = min($zones['entete']['limite'], $zones['entete']['total']);
