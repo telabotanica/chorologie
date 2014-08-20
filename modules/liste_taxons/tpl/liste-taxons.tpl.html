@@ -1,4 +1,7 @@
 <h3>
+<?php if($nom_zone_geo != null): ?>
+	<?= ucfirst(strtolower($nom_zone_geo)); ?> - 
+<?php endif; ?>
 <?php if($nombre > 0): ?>
 	Liste des taxons
 	<?= $debut ?> à <?= min($fin, $nombre_total) ?> sur <?= $nombre_total ?>
