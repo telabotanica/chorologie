@@ -29,9 +29,16 @@ class ListeTaxons extends ModuleControleur {
 			'nbParPage' => 20,
 			'lettre' => null,
 			'zone-geo' => null,
+			'nom-zone-geo' => null,	
 			'tri'		=> "nom_sci",
 			'ordre'	=> "ASC"			
 		));
+		
+		$params_base = array();
+		if($parametresUtilises['nom-zone-geo'] != null && $parametresUtilises['zone-geo'] != null) {
+			$params_base['nom-zone-geo'] = $parametresUtilises['nom-zone-geo'];
+			$params_base['zone-geo'] = $parametresUtilises['zone-geo'];
+		}
 
 		// Transmisison des paramètres au squelette
 		$donnees = array_merge($donnees, $parametresUtilises);
@@ -40,7 +47,7 @@ class ListeTaxons extends ModuleControleur {
 		// URLs de base
 		// attention à l'ordre des appels de cette chierie
 		$donnees['url_base'] = $this->obtenirUrlBase();
-		$donnees['url_module'] = $this->obtenirUrlModule();
+		$donnees['url_module'] = $this->obtenirUrlModule($params_base);
 		
 		// Ajouts des urls de pagination et de tri
 		$donnees = array_merge($donnees, $this->obtenirUrlsBasePaginationEtColonnesTriables($parametresUtilises));
@@ -53,7 +60,7 @@ class ListeTaxons extends ModuleControleur {
 		$taxons = $this->api->listeTaxons($depart, $parametresUtilises['nbParPage'], 
 											$parametresUtilises['lettre'], $parametresUtilises['zone-geo'],
 											$parametresUtilises['tri'], $parametresUtilises['ordre']);
-
+		
 		// Pagination
 		$donnees['nombre'] = min($taxons['entete']['limite'], $taxons['entete']['total']);
 		$donnees['nombre_total'] = $taxons['entete']['total'];
@@ -81,12 +88,17 @@ class ListeTaxons extends ModuleControleur {
 			$donnees['taxons'] = $taxons['resultat'];
 		}
 		//echo "DON TAX : " . print_r($donnees['taxons'], true) . "<br/>";
-
+		//echo '<pre>'.print_r($donnees,true).'</pre>';exit;
 		// de A à Z
 		$donnees['lettres'] = array();
 		for ($i=65; $i<=90; $i++) {
 			$donnees['lettres'][] = chr($i);
 		}
+		
+		// mini correction pour extract qui ne tolere pas les variables avec des "-"
+		// tout comme php en général
+		$donnees['nom_zone_geo'] = $donnees['nom-zone-geo'];
+		
 		// possibilités de tailles de page
 		$donnees['tailles_page'] = array(10, 20, 50, 100);
 		$this->setSortie(self::RENDU_CORPS, $this->getVue('liste-taxons', $donnees));
