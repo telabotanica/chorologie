@@ -22,7 +22,7 @@ class Carte extends ModuleControleur {
 
 	protected function init() {
 		$this->api = new Cartes($this->conteneur);
-		$this->largeurCarte = 800;
+		$this->largeurCarte = $this->conteneur->getParametre('largeur_carte');
 	}
 
 	public function executer() {

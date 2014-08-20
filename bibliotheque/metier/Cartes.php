@@ -37,9 +37,14 @@ class Cartes extends ChorologieDAO {
 		return $donnees;
 	}
 
-	public function getCarteTaxon($largeur, $taxon) {
+	public function getUrlCarteTaxon($largeur, $taxon) {
 		$url = sprintf($this->urlCarteTaxon, $largeur, $taxon);
-		$donnees = $this->chargerDonnees($url);
+		return $url;
+	}
+
+	public function getCarteTaxon($largeur, $taxon) {
+		$url = $this->getUrlCarteTaxon($largeur, $taxon);
+		$donnees = $this->chargerDonneesBrutes($url);
 		return $donnees;
 	}
 

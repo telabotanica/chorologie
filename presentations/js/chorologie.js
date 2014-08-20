@@ -12,6 +12,9 @@ $(document).bind('liste-taxons_charge', function() {
 
 // Code pour le module carte-taxon
 $(document).bind('carte-taxon_charge', function() {
+	$('svg').find('path').click(function() {
+		alert($(this).attr('id'));
+	});
 });
 
 $(document).ready(function() {

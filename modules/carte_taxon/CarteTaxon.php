@@ -24,7 +24,7 @@ class CarteTaxon extends ModuleControleur {
 
 	protected function init() {
 		$this->api = new Cartes($this->conteneur);
-		$this->largeurCarte = 800;
+		$this->largeurCarte = $this->conteneur->getParametre('largeur_carte');
 		$this->taxon = $this->capturerParam('taxon');
 		$this->nomSci = $this->capturerParam('nom-sci');
 	}
@@ -38,9 +38,9 @@ class CarteTaxon extends ModuleControleur {
 
 		if ($this->taxon != null) {
 			$this->taxon = 'nt:' . $this->taxon;
+			$donnees['url_carte'] = $this->api->getUrlCarteTaxon($this->taxon, $this->largeurCarte);
 			$donnees['carte'] = $this->api->getCarteTaxon($this->taxon, $this->largeurCarte);
 			$donnees['legende'] = $this->api->getLegendeTaxon($this->taxon);
-			print_r($donnees);
 		}
 
 		$this->setSortie(self::RENDU_CORPS, $this->getVue('carte-taxon', $donnees));
