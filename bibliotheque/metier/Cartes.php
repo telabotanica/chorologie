@@ -12,21 +12,41 @@
 class Cartes extends ChorologieDAO {
 
 	protected $urlCarte;
-	protected $urlLegende;
-	protected $couleur;
+	protected $urlCarteLegende;
+	protected $urlCarteTaxon;
+	protected $urlCarteTaxonLegende;
+	//protected $couleur;
 
 	protected function init() {
 		 $this->urlCarte = $this->conteneur->getParametre('tpl_url_service_carte');
-		 $this->urlLegende = $this->conteneur->getParametre('tpl_url_service_legende');
-		 $this->couleur = $this->conteneur->getParametre('couleur_carte');
+		 $this->urlCarteLegende = $this->conteneur->getParametre('tpl_url_service_carte_legende');
+		 $this->urlCarteTaxon = $this->conteneur->getParametre('tpl_url_service_carte_taxon');
+		 $this->urlCarteTaxonLegende = $this->conteneur->getParametre('tpl_url_service_carte_taxon_legende');
+		 //$this->couleur = $this->conteneur->getParametre('couleur_carte');
 	}
 
-	public function getCarte($largeur, $taxon=null) {
-		$url = sprintf($this->urlCarte, $largeur, $taxon, $this->couleur);
+	public function getCarte($largeur) {
+		$url = sprintf($this->urlCarte, $largeur);
+		$donnees = $this->chargerDonnees($url);
+		return $donnees;
 	}
 
-	public function getLegende($taxon=null) {
-		$url = sprintf($this->urlCarte, $taxon, $this->couleur);
+	public function getLegende() {
+		$url = $this->urlCarteLegende;
+		$donnees = $this->chargerDonnees($url);
+		return $donnees;
+	}
+
+	public function getCarteTaxon($largeur, $taxon) {
+		$url = sprintf($this->urlCarteTaxon, $largeur, $taxon);
+		$donnees = $this->chargerDonnees($url);
+		return $donnees;
+	}
+
+	public function getLegendeTaxon($taxon) {
+		$url = sprintf($this->urlCarteTaxonLegende, $taxon);
+		$donnees = $this->chargerDonnees($url);
+		return $donnees;
 	}
 }	
 ?>

@@ -13,16 +13,20 @@
  * @license		http://www.cecill.info/licences/Licence_CeCILL_V2-fr.txt Licence CECILL-v2
  * @version		$Id$
  */
-class Carte extends ModuleControleur {
+class CarteTaxon extends ModuleControleur {
 
 	/** API "Carte" */
 	protected $api;
 
+	protected $taxon;
 	protected $largeurCarte;
+	protected $nomSci;
 
 	protected function init() {
 		$this->api = new Cartes($this->conteneur);
 		$this->largeurCarte = 800;
+		$this->taxon = $this->capturerParam('taxon');
+		$this->nomSci = $this->capturerParam('nom-sci');
 	}
 
 	public function executer() {
@@ -30,10 +34,15 @@ class Carte extends ModuleControleur {
 
 		$donnees['url_base'] = $this->obtenirUrlBase();
 
-		$donnees['carte'] = $this->api->getCarte($this->largeurCarte);
-		$donnees['legende'] = $this->api->getLegende();
-		print_r($donnees);
+		$donnees['titre_carte'] = sprintf($this->conteneur->getParametre('titre_carte_taxon'), $this->nomSci);
 
-		$this->setSortie(self::RENDU_CORPS, $this->getVue('carte', $donnees));
+		if ($this->taxon != null) {
+			$this->taxon = 'nt:' . $this->taxon;
+			$donnees['carte'] = $this->api->getCarteTaxon($this->taxon, $this->largeurCarte);
+			$donnees['legende'] = $this->api->getLegendeTaxon($this->taxon);
+			print_r($donnees);
+		}
+
+		$this->setSortie(self::RENDU_CORPS, $this->getVue('carte-taxon', $donnees));
 	}
 }
