@@ -18,12 +18,12 @@ class Taxons extends ChorologieDAO {
 	 * géographiques, commençant à $depart et contenant $nbParPage résultats; si
 	 * $masque est spécifié, ne considère que les résultats dont le nom commence par "masqueNom"
 	 */
-	public function listeTaxons($depart, $nbParPage, $masqueNom=null, $zoneGeo=null) {
+	public function listeTaxons($depart, $nbParPage, $masqueNom=null, $zoneGeo=null, $tri="nom_sci", $ordre="ASC") {
 		$squeletteUrl = $this->conteneur->getParametre('tpl_url_service_taxons');
 		if ($masqueNom != null) {
 			$masqueNom = $masqueNom . '%';
 		}
-		$url = sprintf($squeletteUrl, $depart, $nbParPage, $masqueNom, $zoneGeo);
+		$url = sprintf($squeletteUrl, $depart, $nbParPage, $masqueNom, $zoneGeo, $tri, $ordre);
 		$donnees = $this->chargerDonnees($url);
 		return $donnees;
 	}

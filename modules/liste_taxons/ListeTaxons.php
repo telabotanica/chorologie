@@ -28,7 +28,9 @@ class ListeTaxons extends ModuleControleur {
 			'page' => 1,
 			'nbParPage' => 20,
 			'lettre' => null,
-			'zone-geo' => null	
+			'zone-geo' => null,
+			'tri'		=> "nom_sci",
+			'ordre'	=> "ASC"			
 		));
 
 		// Transmisison des paramètres au squelette
@@ -39,13 +41,18 @@ class ListeTaxons extends ModuleControleur {
 		// attention à l'ordre des appels de cette chierie
 		$donnees['url_base'] = $this->obtenirUrlBase();
 		$donnees['url_module'] = $this->obtenirUrlModule();
-
+		
+		// Ajouts des urls de pagination et de tri
+		$donnees = array_merge($donnees, $this->obtenirUrlsBasePaginationEtColonnesTriables($parametresUtilises));
+		
 		// URL pour les liens eFlore
 		$donnees['url_base_eflore_bdtfx'] = $this->conteneur->getParametre('url_base_eflore_bdtfx');
 
 		// Récupération de la liste des taxons
 		$depart = ($parametresUtilises['page'] - 1) * $parametresUtilises['nbParPage'];
-		$taxons = $this->api->listeTaxons($depart, $parametresUtilises['nbParPage'], $parametresUtilises['lettre'], $parametresUtilises['zone-geo']);
+		$taxons = $this->api->listeTaxons($depart, $parametresUtilises['nbParPage'], 
+											$parametresUtilises['lettre'], $parametresUtilises['zone-geo'],
+											$parametresUtilises['tri'], $parametresUtilises['ordre']);
 
 		// Pagination
 		$donnees['nombre'] = min($taxons['entete']['limite'], $taxons['entete']['total']);
@@ -82,7 +89,11 @@ class ListeTaxons extends ModuleControleur {
 		}
 		// possibilités de tailles de page
 		$donnees['tailles_page'] = array(10, 20, 50, 100);
-
 		$this->setSortie(self::RENDU_CORPS, $this->getVue('liste-taxons', $donnees));
+	}
+	
+	private function genererUrlTri($url_module, $tri, $ordre) {
+		$ordre = ($ordre == "ASC") ? "DESC" : "ASC";
+		return $url_module."&tri=".$tri."&ordre=".$ordre;
 	}
 }

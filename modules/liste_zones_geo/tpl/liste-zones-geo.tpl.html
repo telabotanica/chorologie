@@ -44,8 +44,22 @@
 <table class="table">
 	<thead>
 		<tr>
-			<td>Code</td>
-			<td><?= ucfirst(substr($type, 0, -1)) ?></td>
+			<td>
+				<?php if($tri == "code") { ?>
+						Code
+						<a href="<?= $url_module_sans_tri.'&tri=code&ordre='.$ordre_tri_inverse; ?>"><span class="glyphicon glyphicon-chevron-<?= ($ordre == "ASC") ? "up" : "down" ?>"></span>&nbsp</a>
+					<?php } else { ?>
+						<a title="Cliquez pour trier sur cette colonne" href="<?= $url_module_sans_tri.'&tri=code&ordre=ASC' ?>">Code</a>
+				<? } ?>
+				</td>
+			<td>
+				<?php if($tri == "nom") { ?>
+						<?= ucfirst(substr($type, 0, -1)); ?>
+						<a href="<?= $url_module_sans_tri.'&tri=nom&ordre='.$ordre_tri_inverse; ?>"><span class="glyphicon glyphicon-chevron-<?= ($ordre == "ASC") ? "up" : "down" ?>"></span>&nbsp</a>
+					<?php } else { ?>
+						<a title="Cliquez pour trier sur cette colonne" href="<?= $url_module_sans_tri.'&tri=nom&ordre=ASC' ?>"><?= ucfirst(substr($type, 0, -1)) ?></a>
+				<? } ?>
+			</td>
 		</tr>
 	</thead>
 	<tbody>

@@ -44,9 +44,30 @@
 <table class="table">
 	<thead>
 		<tr>
-			<td>Nom latin</td>
-			<td>Nom vernaculaire</td>
-			<td>Lien vers eFlore</td>
+			<td>
+				<?php if($tri == "nom_sci") { ?>
+					Nom latin
+					<a href="<?= $url_module_sans_tri.'&tri=nom_sci&ordre='.$ordre_tri_inverse; ?>"><span class="glyphicon glyphicon-chevron-<?= ($ordre == "ASC") ? "up" : "down" ?>"></span>&nbsp</a>
+				<?php } else { ?>
+					<a title="Cliquez pour trier sur cette colonne" href="<?= $url_module_sans_tri.'&tri=nom_sci&ordre=ASC' ?>">Nom latin</a>
+				<? } ?>
+			</td>
+			<td>
+				<?php if($tri == "nom_commun") { ?>
+					Nom vernaculaire
+					<a href="<?= $url_module_sans_tri.'&tri=nom_commun&ordre='.$ordre_tri_inverse; ?>"><span class="glyphicon glyphicon-chevron-<?= ($ordre == "ASC") ? "up" : "down" ?>"></span>&nbsp</a>
+				<?php } else { ?>
+					<a title="Cliquez pour trier sur cette colonne" href="<?= $url_module_sans_tri.'&tri=nom_commun&ordre=ASC' ?>">Nom vernaculaire</a>
+				<? } ?>
+			</td>
+			<td>
+				<?php if($tri == "num_nom") { ?>
+					Lien vers eFlore
+					<a href="<?= $url_module_sans_tri.'&tri=num_nom&ordre='.$ordre_tri_inverse; ?>"><span class="glyphicon glyphicon-chevron-<?= ($ordre == "ASC") ? "up" : "down" ?>"></span>&nbsp</a>
+				<?php } else { ?>
+					<a title="Cliquez pour trier sur cette colonne" href="<?= $url_module_sans_tri.'&tri=num_nom&ordre=ASC' ?>">Lien vers eFlore</a>
+				<? } ?>
+			</td>
 		</tr>
 	</thead>
 	<tbody>
