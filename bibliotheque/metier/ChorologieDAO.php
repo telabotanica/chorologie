@@ -17,34 +17,53 @@ abstract class ChorologieDAO {
 	protected $conteneur;
 
 	/**
-	 * Accepte éventuellement un conteneur, pour choper le client REST entre
-	 * autres; sinon, prendra les éléments du Framework
+	 * Demande un conteneur, pour choper le client REST entre
+	 * autres
 	 * 
 	 * @param Conteneur $conteneur
 	 */
-	public function __construct(Conteneur $conteneur = null) {
+	public function __construct(Conteneur $conteneur) {
 		$this->conteneur = $conteneur;
 		$this->restClient = $conteneur->getRestClient();
+		$this->init();
 	}
 
 	/**
-	 * Consulte une URL et retourne le résultat, ou déclenche une erreur
-	 *
-	 * @param $url l'URL du service
+	 * Ajustements post-constructeur
 	 */
-	protected function chargerDonnees($url) {
-		$resultat = false;
-		$json = $this->restClient->consulter($url);
+	protected function init() {
+	}
+
+	/**
+	 * Consulte une URL et retourne le résultat (ou déclenche une erreur), en
+	 * admettant qu'il soit au format JSON
+	 *
+	 * @param string $url l'URL du service
+	 */
+	protected function chargerDonnees($url, $decoderJSON = true) {
+		$resultat = $this->restClient->consulter($url);
 		$entete = $this->restClient->getReponseEntetes();
 
 		// Si le service meta-donnees fonctionne correctement, l'entete comprend la clé wrapper_data
 		if (isset($entete['wrapper_data'])) {
-			$resultat = json_decode($json, true);
-			$this->entete = (isset($resultat['entete'])) ? $resultat['entete'] : null;
+			if ($decoderJSON) {
+				$resultat = json_decode($resultat, true);
+				$this->entete = (isset($resultat['entete'])) ? $resultat['entete'] : null;
+			}
 		} else {
 			$m = "L'url <a href=\"$url\">$url</a> lancée via RestClient renvoie une erreur";
 			trigger_error($m, E_USER_WARNING);
 		}
 		return $resultat;
+	}
+
+	/**
+	 * Consulte une URL et retourne le résultat sans chercher à décoder du JSON
+	 * 
+	 * @param string $url l'URL du service
+	 */
+	protected function chargerDonneesBrutes($url) {
+		$donnees = $this->chargerDonnees($url, false);
+		return $donnees;
 	}
 }

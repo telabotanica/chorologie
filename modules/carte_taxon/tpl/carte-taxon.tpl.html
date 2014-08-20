@@ -1,0 +1,14 @@
+<h3>
+<?= $titre_carte ?>
+</h3>
+
+<label>Cliquez sur une zone de la carte pour afficher la liste des autres taxons observés</label>
+<br/>
+
+<div id="carte" data-url-base-liste-taxons="<?= $url_base_liste_taxons ?>">
+<?= $carte ?>
+</div>
+
+<script type="text/javascript">
+	$(document).trigger('carte-taxon_charge');
+</script>
