@@ -19,12 +19,12 @@ class ZonesGeo extends ChorologieDAO {
 	 * résultats; si $masque est spécifié, ne considère que les résultats dont
 	 * le nom commence par "masqueNom"
 	 */
-	public function listeZones($depart, $nbParPage, $masqueNom=null) {
+	public function listeZones($depart, $nbParPage, $masqueNom=null, $tri = null, $ordre = null) {
 		$squeletteUrl = $this->conteneur->getParametre('tpl_url_service_zones');
 		if ($masqueNom != null) {
 			$masqueNom = $masqueNom . '%';
 		}
-		$url = sprintf($squeletteUrl, $depart, $nbParPage, $masqueNom);
+		$url = sprintf($squeletteUrl, $depart, $nbParPage, $masqueNom, $tri, $ordre);
 		//echo "URL: $url<br/>";
 		$donnees = $this->chargerDonnees($url);
 		return $donnees;

@@ -346,5 +346,41 @@ class ModuleControleur extends Controleur {
 		$url = $this->urlBase->getURL();
 		return $url;
 	}
+	
+	public function obtenirUrlBasePagination($parametresUtilises) {
+		$params_pagination = $parametresUtilises;
+		unset($params_pagination['page']);
+		unset($params_pagination['nbParPage']);
+		$url_base_pagination = $this->obtenirUrlModule(array_filter($params_pagination));
+		
+		return $url_base_pagination;
+	}
+	
+	public function obtenirUrlBaseColonnesTriables($parametresUtilises) {
+		$urls = array();
+		// Urls de base pour les colonnes triables
+		$params_sans_tri = $parametresUtilises;
+		unset($params_sans_tri['ordre']);
+		unset($params_sans_tri['tri']);
+		$urls['url_module_sans_tri'] = $this->obtenirUrlModule(array_filter($params_sans_tri));
+		$urls['ordre_tri_inverse'] = ($parametresUtilises['ordre'] == "ASC") ? "DESC" : "ASC";
+		
+		return $urls;
+	}
+	
+	public function obtenirUrlsBasePaginationEtColonnesTriables($parametresUtilises) {
+		$urls = array();
+		
+		// Url de base de la pagination
+		$urls['url_base_pagination'] = $this->obtenirUrlBasePagination($parametresUtilises);
+		
+		// Urls de base pour les colonnes triables
+		$urls_tri = $this->obtenirUrlBaseColonnesTriables($parametresUtilises);
+		$urls['url_module_sans_tri'] = $urls_tri['url_module_sans_tri'];
+		$urls['ordre_tri_inverse'] = $urls_tri['ordre_tri_inverse'];
+		
+		return $urls;
+	}
+	
 }
 ?>
