@@ -13,7 +13,10 @@ $(document).bind('liste-taxons_charge', function() {
 // Code pour le module carte-taxon
 $(document).bind('carte-taxon_charge', function() {
 	$('svg').find('path').click(function() {
-		alert($(this).attr('id'));
+		var idZone = $(this).attr('id');
+		var urlBaseListeTaxons = $('#carte').data('url-base-liste-taxons'),
+			url = urlBaseListeTaxons + '&zone-geo=' + idZone;
+		window.location = url;
 	});
 });
 

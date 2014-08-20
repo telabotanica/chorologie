@@ -33,6 +33,7 @@ class CarteTaxon extends ModuleControleur {
 		$donnees = array();
 
 		$donnees['url_base'] = $this->obtenirUrlBase();
+		$donnees['url_base_liste_taxons'] = $donnees['url_base'] . "?module=liste-taxons";
 
 		$donnees['titre_carte'] = sprintf($this->conteneur->getParametre('titre_carte_taxon'), $this->nomSci);
 
