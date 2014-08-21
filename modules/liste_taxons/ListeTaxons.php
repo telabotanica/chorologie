@@ -72,7 +72,6 @@ class ListeTaxons extends ModuleControleur {
 		$donnees['page_max'] = $nbPages;
 		$donnees['paginateur'] = $this->getVueCommune('pagination', $donnees);
 
-		//echo "TAX : " . print_r($taxons, true) . " (" . count($taxons['resultat']) . ")<br/>";
 		// préparation du tableau
 		$donnees['entetes'] = array();
 		$donnees['taxons'] = array();
@@ -87,8 +86,7 @@ class ListeTaxons extends ModuleControleur {
 			$donnees['entetes'] = array_keys($premierResultat);
 			$donnees['taxons'] = $taxons['resultat'];
 		}
-		//echo "DON TAX : " . print_r($donnees['taxons'], true) . "<br/>";
-		//echo '<pre>'.print_r($donnees,true).'</pre>';exit;
+
 		// de A à Z
 		$donnees['lettres'] = array();
 		for ($i=65; $i<=90; $i++) {
@@ -98,6 +96,7 @@ class ListeTaxons extends ModuleControleur {
 		// mini correction pour extract qui ne tolere pas les variables avec des "-"
 		// tout comme php en général
 		$donnees['nom_zone_geo'] = $donnees['nom-zone-geo'];
+		$donnees['zone_geo'] = $donnees['zone-geo'];
 		
 		// possibilités de tailles de page
 		$donnees['tailles_page'] = array(10, 20, 50, 100);

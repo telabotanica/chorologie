@@ -28,8 +28,8 @@ class ListeZonesGeo extends ModuleControleur {
 			'page' => 1,
 			'nbParPage' => 20,
 			'lettre' => null,
-			'tri'	=> 'code',
-			'ordre' => 'ASC'	
+			'tri'	=> null,
+			'ordre' => null
 		));
 
 		// Transmisison des paramètres au squelette

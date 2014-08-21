@@ -11,10 +11,14 @@ class Pagination {
 	 * taille de page souhaitée
 	 */
 	public static function nombreDePagesSelonResultats($nbResultats, $taillePage) {
-		$nbPages = intval($nbResultats / $taillePage);
-		// "ça dépend", ça dépasse
-		if (($nbPages * $taillePage) != $nbResultats) {
-			$nbPages++;
+		if ($nbResultats == 0 || $taillePage == 0) {
+			$nbPages = 0;
+		} else {
+			$nbPages = intval($nbResultats / $taillePage);
+			// "ça dépend", ça dépasse
+			if (($nbPages * $taillePage) != $nbResultats) {
+				$nbPages++;
+			}
 		}
 		return $nbPages;
 	}

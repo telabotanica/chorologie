@@ -1,6 +1,6 @@
 <h3>
 <?php if($nom_zone_geo != null): ?>
-	<?= ucfirst(strtolower($nom_zone_geo)); ?> - 
+	<?= $nom_zone_geo ?> - 
 <?php endif; ?>
 <?php if($nombre > 0): ?>
 	Liste des taxons
@@ -23,6 +23,8 @@
 <form method="get" action="<?= $url_base ?>" class="form form-inline">
 	<input type="hidden" value="<?= $module ?>" name="module" />
 	<input type="hidden" value="<?= $lettre ?>" name="lettre" />
+	<input type="hidden" value="<?= $zone_geo ?>" name="zone-geo" />
+	<input type="hidden" value="<?= $nom_zone_geo ?>" name="nom-zone-geo" />
 	<div id="paginateur">
 		Page
 		<?= $paginateur ?>
@@ -77,7 +79,12 @@
 		<?php foreach($taxons as $taxon): ?>
 		<tr>
 			<td>
-				<a href="<?= $url_base ?>?module=carte-taxon&taxon=<?= $taxon['num_nom'] ?>&nom-sci=<?= $taxon['nom_sci'] ?>"><?= $taxon['nom_sci'] ?></a>
+				<a href="<?= $url_base ?>?module=carte-taxon&taxon=<?= $taxon['num_nom'] ?>&nom-sci=<?= $taxon['nom_sci'] ?>">
+					<?= $taxon['nom_sci'] ?>
+				</a>
+				<?php if($taxon['presence'] == '1?'): ?>
+					(à confirmer)
+				<?php endif; ?>
 			</td>
 			<td>
 				<?= $taxon['nom_commun'] ?>

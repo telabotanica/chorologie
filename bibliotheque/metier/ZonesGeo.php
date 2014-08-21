@@ -25,7 +25,6 @@ class ZonesGeo extends ChorologieDAO {
 			$masqueNom = $masqueNom . '%';
 		}
 		$url = sprintf($squeletteUrl, $depart, $nbParPage, $masqueNom, $tri, $ordre);
-		echo "URL: $url<br/>";
 		$donnees = $this->chargerDonnees($url);
 		return $donnees;
 	}

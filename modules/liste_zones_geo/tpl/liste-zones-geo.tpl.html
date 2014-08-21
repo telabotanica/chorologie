@@ -45,19 +45,19 @@
 	<thead>
 		<tr>
 			<td>
-				<?php if($tri == "code") { ?>
+				<?php if($tri == $entetes[0]) { ?>
 						Code
-						<a href="<?= $url_module_sans_tri.'&tri=code&ordre='.$ordre_tri_inverse; ?>"><span class="glyphicon glyphicon-chevron-<?= ($ordre == "ASC") ? "up" : "down" ?>"></span>&nbsp</a>
+						<a href="<?= $url_module_sans_tri ?>&tri=<?= $entetes[0] ?>&ordre=<?= $ordre_tri_inverse ?>"><span class="glyphicon glyphicon-chevron-<?= ($ordre == "ASC") ? "up" : "down" ?>"></span>&nbsp</a>
 					<?php } else { ?>
-						<a title="Cliquez pour trier sur cette colonne" href="<?= $url_module_sans_tri.'&tri=code&ordre=ASC' ?>">Code</a>
+						<a title="Cliquez pour trier sur cette colonne" href="<?= $url_module_sans_tri ?>&tri=<?= $entetes[0] ?>&ordre=ASC">Code</a>
 				<? } ?>
 				</td>
 			<td>
-				<?php if($tri == "nom") { ?>
+				<?php if($tri == $entetes[1]) { ?>
 						<?= ucfirst(substr($type, 0, -1)); ?>
-						<a href="<?= $url_module_sans_tri.'&tri=nom&ordre='.$ordre_tri_inverse; ?>"><span class="glyphicon glyphicon-chevron-<?= ($ordre == "ASC") ? "up" : "down" ?>"></span>&nbsp</a>
+						<a href="<?= $url_module_sans_tri ?>&tri=<?= $entetes[1] ?>&ordre=<?= $ordre_tri_inverse ?>"><span class="glyphicon glyphicon-chevron-<?= ($ordre == "ASC") ? "up" : "down" ?>"></span>&nbsp</a>
 					<?php } else { ?>
-						<a title="Cliquez pour trier sur cette colonne" href="<?= $url_module_sans_tri.'&tri=nom&ordre=ASC' ?>"><?= ucfirst(substr($type, 0, -1)) ?></a>
+						<a title="Cliquez pour trier sur cette colonne" href="<?= $url_module_sans_tri ?>&tri=<?= $entetes[1] ?>&ordre=ASC"><?= ucfirst(substr($type, 0, -1)) ?></a>
 				<? } ?>
 			</td>
 		</tr>
