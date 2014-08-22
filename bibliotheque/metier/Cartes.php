@@ -24,10 +24,15 @@ class Cartes extends ChorologieDAO {
 		 $this->urlCarteTaxonLegende = $this->conteneur->getParametre('tpl_url_service_carte_taxon_legende');
 		 //$this->couleur = $this->conteneur->getParametre('couleur_carte');
 	}
+	
+	public function getUrlCarte($largeur) {
+		$url = sprintf($this->urlCarte, $largeur);
+		return $url;
+	}
 
 	public function getCarte($largeur) {
 		$url = sprintf($this->urlCarte, $largeur);
-		$donnees = $this->chargerDonnees($url);
+		$donnees = $this->chargerDonneesBrutes($url);
 		return $donnees;
 	}
 

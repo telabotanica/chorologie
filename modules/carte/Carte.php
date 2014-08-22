@@ -30,9 +30,9 @@ class Carte extends ModuleControleur {
 
 		$donnees['url_base'] = $this->obtenirUrlBase();
 
-		$donnees['carte'] = $this->api->getCarte($this->largeurCarte);
+		$donnees['url_base_liste_taxons'] = $donnees['url_base'] . "?module=liste-taxons";
+		$donnees['carte'] = $this->api->getCarte(600);
 		$donnees['legende'] = $this->api->getLegende();
-		print_r($donnees);
 
 		$this->setSortie(self::RENDU_CORPS, $this->getVue('carte', $donnees));
 	}

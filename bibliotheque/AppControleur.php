@@ -21,6 +21,7 @@ class AppControleur {
 
 	protected $parametres = array();
 	protected $conteneur;
+	protected $source;
 
 	public function __construct(Conteneur $conteneur) {
 		$this->conteneur = $conteneur;
@@ -33,6 +34,7 @@ class AppControleur {
 			'module' => $this->conteneur->getParametre('module_defaut'),
 			'action' => $this->conteneur->getParametre('action_defaut'),
 			'sortie' => $sortie);
+		$this->source = $this->conteneur->getParametre('source_donnees');
 	}
 
 	/**

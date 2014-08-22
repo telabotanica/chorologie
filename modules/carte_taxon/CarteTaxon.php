@@ -36,11 +36,11 @@ class CarteTaxon extends ModuleControleur {
 		$donnees['url_base_liste_taxons'] = $donnees['url_base'] . "?module=liste-taxons";
 
 		$donnees['titre_carte'] = sprintf($this->conteneur->getParametre('titre_carte_taxon'), $this->nomSci);
+		$donnees['legende'] = json_decode(file_get_contents('http://localhost/service:gentiana:chorologie/cartes/nn:3/legende'));
 
 		if ($this->taxon != null) {
 			$this->taxon = 'nn:' . $this->taxon;
-			$donnees['url_carte'] = $this->api->getUrlCarteTaxon($this->taxon, $this->largeurCarte);
-			$donnees['carte'] = $this->api->getCarteTaxon($this->taxon, $this->largeurCarte);
+			$donnees['carte'] = $this->api->getCarteTaxon($this->taxon, 600);
 			$donnees['legende'] = $this->api->getLegendeTaxon($this->taxon);
 		}
 

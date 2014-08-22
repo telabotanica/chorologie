@@ -9,6 +9,16 @@
 <?= $carte ?>
 </div>
 
+<div id="legende">
+	<span class="legende_titre"> Légende </span>
+	<?php foreach($legende as $item) : ?>
+		<div class="legende_item">
+			<span style="background-color:<?= $item['couleur']; ?>" class="legende_item_couleur"></span>
+			<span class="legende_item_nom" title="<?= $item['description']; ?>"><?= $item['nom'] ?></span>
+		</div>
+	<?php endforeach; ?>
+</div>
+
 <script type="text/javascript">
 	$(document).trigger('carte-taxon_charge');
 </script>
