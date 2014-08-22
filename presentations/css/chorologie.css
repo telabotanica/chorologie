@@ -14,3 +14,28 @@ p#chorologie_pied_page {
 	margin-bottom: 5px;
 	margin-top: 10px;
 }
+
+#carte polygon, #carte path {
+	cursor: pointer;
+}
+
+.legende_item_couleur {
+    border: 1px solid black;
+    display: block;
+    float: left;
+    height: 20px;
+    width: 20px;
+}
+
+.legende_item_nom {
+	display: inline-block;
+	margin-left: 5px;
+}
+
+.legende_item {
+	margin-bottom : 2px;
+}
+
+.legende_titre {
+	font-weight: bold;
+}

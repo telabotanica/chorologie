@@ -3,6 +3,7 @@
 require_once 'chorologie.php';
 $url_css_bootstrap = Config::get('url_css_bootstrap');
 $url_jquery = Config::get('url_jquery');
+$css_specifique = Config::get('source_donnees');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
@@ -29,6 +30,7 @@ $url_jquery = Config::get('url_jquery');
 		<link href="http://www.tela-botanica.org/sites/commun/generique/styles/commun.css" rel="stylesheet" type="text/css" />
 		<link href="http://www.tela-botanica.org/sites/botanique/generique/styles/botanique.css" rel="stylesheet" type="text/css" />
 		<link href="presentations/css/chorologie.css" rel="stylesheet" type="text/css" />
+		<link href="presentations/css/<?= $css_specifique; ?>.css" rel="stylesheet" type="text/css" />
 
 		<!-- JavaScript -->
 		<script type="text/Javascript" src="<?= $url_jquery ?>"></script>
