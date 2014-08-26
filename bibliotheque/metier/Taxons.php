@@ -27,5 +27,12 @@ class Taxons extends ChorologieDAO {
 		$donnees = $this->chargerDonnees($url);
 		return $donnees;
 	}
+	
+	public function getInfosTaxon($numNom) {
+		$squeletteUrl = $this->conteneur->getParametre('tpl_url_service_infos_taxons');
+		$url = sprintf($squeletteUrl, $numNom);
+		$donnees = $this->chargerDonnees($url);
+		return $donnees;
+	}
 }
 ?>
