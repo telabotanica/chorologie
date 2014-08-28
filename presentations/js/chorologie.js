@@ -63,6 +63,7 @@ function gererEvenementClicCarte() {
 	// carte gentiana
 	$('svg').find('polygon').click(function() {
 		var idZone = $(this).attr('id');
+		idZone = idZone.replace('INSEE-C-', '');
 		var titre = $(this).attr('title').split(" ");
 		var urlBaseListeTaxons = $('#carte').data('url-base-liste-taxons'),
 			url = urlBaseListeTaxons + '&zone-geo=' + idZone + '&nom-zone-geo=' + titre[0];

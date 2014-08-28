@@ -44,6 +44,8 @@ class CarteTaxon extends ModuleControleur {
 			$donnees['carte'] = $this->api->getCarteTaxon($this->taxon, 600);
 			$donnees['legende'] = $this->api->getLegendeTaxon($this->taxon);
 			$donnees['infos_taxon'] = $this->apiTaxon->getInfosTaxon($this->taxon);
+			$donnees['type_zone'] = Config::get('type_zone');
+			$donnees['nb_zones_total'] = Config::get('nb_zones_total');
 		}
 
 		$this->setSortie(self::RENDU_CORPS, $this->getVue('carte-taxon', $donnees));

@@ -6,13 +6,13 @@
 <br/>
 
 <ul>
-	<li>Présence de l'espèce : <strong><?= $infos_taxon['nb_presence_zones']; ?> <?= Config::get('type_zone'); ?> sur <?= $infos_taxon['nb_zones_totales']; ?></strong></li>
+	<li>Présence de l'espèce : <strong><?= $infos_taxon['nb_presence_zones']; ?> <?= $type_zone ?> sur <?= $nb_zones_total; ?></strong></li>
 	<li>Nom latin : 
 		<a href="<?= Config::get('url_base_eflore_bdtfx').$num_nom ?>" class="lien_ext" title="S'ouvre dans une nouvelle fenêtre">
 			<?= $infos_taxon['nom_sci']; ?>
 		</a>
 	</li>
-	<li>Nom(s) commun(s) : <?= implode(', ', $infos_taxon['noms_vernaculaires']); ?></li>
+	<li>Nom(s) commun(s) : <?= implode(', ', $infos_taxon['noms_vernaculaires_fr']); ?></li>
 </ul>
 
 <div id="carte" data-url-base-liste-taxons="<?= $url_base_liste_taxons ?>">
