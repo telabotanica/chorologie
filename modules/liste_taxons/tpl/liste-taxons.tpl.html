@@ -23,6 +23,8 @@
 <form method="get" action="<?= $url_base ?>" class="form form-inline">
 	<input type="hidden" value="<?= $module ?>" name="module" />
 	<input type="hidden" value="<?= $lettre ?>" name="lettre" />
+	<input type="hidden" value="<?= $tri ?>" name="tri" />
+	<input type="hidden" value="<?= $ordre ?>" name="ordre" />
 	<input type="hidden" value="<?= $zone_geo ?>" name="zone-geo" />
 	<input type="hidden" value="<?= $nom_zone_geo ?>" name="nom-zone-geo" />
 	<div id="paginateur">
@@ -58,11 +60,19 @@
 				<? } ?>
 			</td>
 			<td>
-				<?php if($tri == "nom_commun") { ?>
+				<?php if($tri == "noms_vernaculaires") { ?>
 					Nom vernaculaire
-					<a href="<?= $url_module_sans_tri.'&tri=nom_commun&ordre='.$ordre_tri_inverse; ?>"><span class="glyphicon glyphicon-chevron-<?= ($ordre == "ASC") ? "up" : "down" ?>"></span>&nbsp</a>
+					<a href="<?= $url_module_sans_tri.'&tri=noms_vernaculaires&ordre='.$ordre_tri_inverse; ?>"><span class="glyphicon glyphicon-chevron-<?= ($ordre == "ASC") ? "up" : "down" ?>"></span>&nbsp</a>
 				<?php } else { ?>
-					<a title="Cliquez pour trier sur cette colonne" href="<?= $url_module_sans_tri.'&tri=nom_commun&ordre=ASC' ?>">Nom vernaculaire</a>
+					<a title="Cliquez pour trier sur cette colonne" href="<?= $url_module_sans_tri.'&tri=noms_vernaculaires&ordre=ASC' ?>">Nom vernaculaire</a>
+				<? } ?>
+			</td>
+			<td>
+				<?php if($tri == "protection") { ?>
+					Statuts de protection
+					<a href="<?= $url_module_sans_tri.'&tri=protection&ordre='.$ordre_tri_inverse; ?>"><span class="glyphicon glyphicon-chevron-<?= ($ordre == "ASC") ? "up" : "down" ?>"></span>&nbsp</a>
+				<?php } else { ?>
+					<a title="Cliquez pour trier sur cette colonne" href="<?= $url_module_sans_tri.'&tri=protection&ordre=ASC' ?>">Statuts de protection</a>
 				<? } ?>
 			</td>
 			<td>
@@ -88,6 +98,13 @@
 			</td>
 			<td>
 				<?= $taxon['nom_commun'] ?>
+			</td>
+			<td>
+				<?php foreach ($taxon['statuts_protection'] as $protection): ?>
+				<a href="<?= $protection['lien'] ?>" target="_blank">
+					<?= $protection['zone'] ?>
+				</a>
+				<?php endforeach; ?>
 			</td>
 			<td>
 				<a href="<?= $url_base_eflore_bdtfx ?><?= $taxon['num_nom'] ?>">BDTFXnn<?= $taxon['num_nom'] ?></a>

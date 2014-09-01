@@ -18,7 +18,7 @@ class CarteTaxon extends ModuleControleur {
 	/** API "Carte" */
 	protected $api;
 
-	protected $taxon;
+	protected $numNom;
 	protected $largeurCarte;
 	protected $nomSci;
 
@@ -26,7 +26,7 @@ class CarteTaxon extends ModuleControleur {
 		$this->api = new Cartes($this->conteneur);
 		$this->apiTaxon = new Taxons($this->conteneur);
 		$this->largeurCarte = $this->conteneur->getParametre('largeur_carte');
-		$this->taxon = $this->capturerParam('taxon');
+		$this->numNom = $this->capturerParam('taxon');
 		$this->nomSci = $this->capturerParam('nom-sci');
 	}
 
@@ -38,12 +38,12 @@ class CarteTaxon extends ModuleControleur {
 
 		$donnees['titre_carte'] = sprintf($this->conteneur->getParametre('titre_carte_taxon'), $this->nomSci);
 
-		if ($this->taxon != null) {
-			$donnees['num_nom'] =  $this->taxon;
-			$this->taxon = 'nn:' . $this->taxon;
-			$donnees['carte'] = $this->api->getCarteTaxon($this->taxon, 600);
-			$donnees['legende'] = $this->api->getLegendeTaxon($this->taxon);
-			$donnees['infos_taxon'] = $this->apiTaxon->getInfosTaxon($this->taxon);
+		if ($this->numNom != null) {
+			$donnees['num_nom'] =  $this->numNom;
+			$this->numNom = 'nn:' . $this->numNom;
+			$donnees['carte'] = $this->api->getCarteTaxon($this->numNom, 600);
+			$donnees['legende'] = $this->api->getLegendeTaxon($this->numNom);
+			$donnees['infos_taxon'] = $this->apiTaxon->getInfosTaxon($this->numNom);
 			$donnees['type_zone'] = Config::get('type_zone');
 			$donnees['nb_zones_total'] = Config::get('nb_zones_total');
 		}

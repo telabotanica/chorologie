@@ -87,6 +87,17 @@ class ListeTaxons extends ModuleControleur {
 			$donnees['taxons'] = $taxons['resultat'];
 		}
 
+		// Extraction du premier nom commun et décodage des statuts de protection
+		foreach ($donnees['taxons'] as $k => $taxon) {
+			if ($taxon['noms_vernaculaires'] != null) {
+				$nomCommun = explode(',', $taxon['noms_vernaculaires']);
+				$nomCommun = $nomCommun[0];
+				$donnees['taxons'][$k]['nom_commun'] = $nomCommun;
+			}
+			//print_r($donnees['taxons'][$k]);
+			//echo "<br/><br/>";
+		}
+
 		// de A à Z
 		$donnees['lettres'] = array();
 		for ($i=65; $i<=90; $i++) {
@@ -101,10 +112,5 @@ class ListeTaxons extends ModuleControleur {
 		// possibilités de tailles de page
 		$donnees['tailles_page'] = array(10, 20, 50, 100);
 		$this->setSortie(self::RENDU_CORPS, $this->getVue('liste-taxons', $donnees));
-	}
-	
-	private function genererUrlTri($url_module, $tri, $ordre) {
-		$ordre = ($ordre == "ASC") ? "DESC" : "ASC";
-		return $url_module."&tri=".$tri."&ordre=".$ordre;
 	}
 }
