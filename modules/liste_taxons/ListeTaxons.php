@@ -19,6 +19,7 @@ class ListeTaxons extends ModuleControleur {
 
 	protected function init() {
 		$this->api = new Taxons($this->conteneur);
+		$this->proteges = $this->proteges || ($this->capturerParam('proteges') === '1');
 	}
 
 	public function executer() {
@@ -30,7 +31,7 @@ class ListeTaxons extends ModuleControleur {
 			'lettre' => null,
 			'zone-geo' => null,
 			'nom-zone-geo' => null,	
-			'tri'		=> "nom_sci",
+			'tri' => "nom_sci",
 			'ordre'	=> "ASC"			
 		));
 		
@@ -57,9 +58,15 @@ class ListeTaxons extends ModuleControleur {
 
 		// Récupération de la liste des taxons
 		$depart = ($parametresUtilises['page'] - 1) * $parametresUtilises['nbParPage'];
-		$taxons = $this->api->listeTaxons($depart, $parametresUtilises['nbParPage'], 
-											$parametresUtilises['lettre'], $parametresUtilises['zone-geo'],
-											$parametresUtilises['tri'], $parametresUtilises['ordre']);
+		$taxons = $this->api->listeTaxons(
+			$depart,
+			$parametresUtilises['nbParPage'],
+			$parametresUtilises['lettre'],
+			$parametresUtilises['zone-geo'],
+			$parametresUtilises['tri'],
+			$parametresUtilises['ordre'],
+			$this->proteges
+		);
 		
 		// Pagination
 		$donnees['nombre'] = min($taxons['entete']['limite'], $taxons['entete']['total']);
@@ -94,16 +101,15 @@ class ListeTaxons extends ModuleControleur {
 				$nomCommun = $nomCommun[0];
 				$donnees['taxons'][$k]['nom_commun'] = $nomCommun;
 			}
-			//print_r($donnees['taxons'][$k]);
-			//echo "<br/><br/>";
 		}
+		$donnees['proteges'] = $this->proteges;
 
 		// de A à Z
 		$donnees['lettres'] = array();
 		for ($i=65; $i<=90; $i++) {
 			$donnees['lettres'][] = chr($i);
 		}
-		
+
 		// mini correction pour extract qui ne tolere pas les variables avec des "-"
 		// tout comme php en général
 		$donnees['nom_zone_geo'] = $donnees['nom-zone-geo'];

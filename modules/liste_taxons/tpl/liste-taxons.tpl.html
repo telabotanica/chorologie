@@ -13,7 +13,11 @@
 <?php endif; ?>
 </h3>
 
-<label>Cliquer sur une lettre pour faire apparaître la liste des taxons</label>
+<label>Cliquer sur une lettre pour faire apparaître la liste des taxons
+<?php if ($proteges): ?>
+	protégés
+<?php endif; ?>
+</label>
 <br/>
 <a href="<?= $url_module ?>&nbParPage=<?= $nbParPage ?>">tous</a>
 <?php foreach($lettres as $l): ?>
@@ -89,7 +93,7 @@
 		<?php foreach($taxons as $taxon): ?>
 		<tr>
 			<td>
-				<a href="<?= $url_base ?>?module=carte-taxon&taxon=<?= $taxon['num_nom'] ?>&nom-sci=<?= $taxon['nom_sci'] ?>">
+				<a href="<?= $url_base ?>?module=carte-taxon&taxon=<?= $taxon['num_nom'] ?>">
 					<?= $taxon['nom_sci'] ?>
 				</a>
 				<?php if($taxon['presence'] == '1?'): ?>
@@ -97,14 +101,18 @@
 				<?php endif; ?>
 			</td>
 			<td>
+				<?php if(isset($taxon['nom_commun'])): ?>
 				<?= $taxon['nom_commun'] ?>
+				<?php endif; ?>
 			</td>
 			<td>
+				<?php if($taxon['statuts_protection']): ?>
 				<?php foreach ($taxon['statuts_protection'] as $protection): ?>
 				<a href="<?= $protection['lien'] ?>" target="_blank">
 					<?= $protection['zone'] ?>
 				</a>
 				<?php endforeach; ?>
+				<?php endif; ?>
 			</td>
 			<td>
 				<a href="<?= $url_base_eflore_bdtfx ?><?= $taxon['num_nom'] ?>">BDTFXnn<?= $taxon['num_nom'] ?></a>
