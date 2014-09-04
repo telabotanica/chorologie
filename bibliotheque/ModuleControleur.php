@@ -29,12 +29,17 @@ class ModuleControleur extends Controleur {
 	protected $urlCourante;
 	protected $conteneur;
 	protected $nom;
+	/** si true, ne montre que les taxons protégés; sinon montre tout */
+	protected $proteges;
 	
 	public function __construct(Conteneur $conteneur) {
 		parent::__construct();
 		$this->conteneur = $conteneur;
 
-		// Pour charger les quelettes depuis le même répertoire que le contrôleur
+		// mode "taxons protégés uniquement" ?
+		$this->proteges = ($this->conteneur->getParametre('proteges') === '1');
+
+		// Pour charger les squelettes depuis le même répertoire que le contrôleur
 		$cheminSquelettesLocaux = $this->conteneur->getParametre('chemin_modules').
 			AppControleur::getNomDossierDepuisClasse(get_class($this)).DS.
 			$this->conteneur->getParametre('dossier_squelettes').DS;
@@ -276,11 +281,11 @@ class ModuleControleur extends Controleur {
 
 	public function getParametresUrlListe() {
 		$parametres = array(
-					'referentiel' => Registre::get('parametres.referentiel'),
-					'module' => 'liste',
-					'action' => 'liste',
-					'rang' => $this->rang,
-					'lettre' => $this->lettre
+			'referentiel' => Registre::get('parametres.referentiel'),
+			'module' => 'liste',
+			'action' => 'liste',
+			'rang' => $this->rang,
+			'lettre' => $this->lettre
 		);
 		return $parametres;
 	}
@@ -305,12 +310,12 @@ class ModuleControleur extends Controleur {
 
 	public function getParametresUrlResultat() {
 		$parametres = array(
-					'referentiel' => Registre::get('parametres.referentiel'),
-					'module' => 'recherche',
-					'action' => Registre::get('parametres.action'),
-					'submit' => 'Rechercher',
-					'type_nom' => isset($_GET['type_nom']) ? $_GET['type_nom'] : 'nom_scientifique',
-					'nom' => isset($_GET['nom']) ? $_GET['nom'] : ''
+			'referentiel' => Registre::get('parametres.referentiel'),
+			'module' => 'recherche',
+			'action' => Registre::get('parametres.action'),
+			'submit' => 'Rechercher',
+			'type_nom' => isset($_GET['type_nom']) ? $_GET['type_nom'] : 'nom_scientifique',
+			'nom' => isset($_GET['nom']) ? $_GET['nom'] : ''
 		);
 		return $parametres;
 	}

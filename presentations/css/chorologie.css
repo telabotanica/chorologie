@@ -39,3 +39,7 @@ p#chorologie_pied_page {
 .legende_titre {
 	font-weight: bold;
 }
+
+.nom_sci {
+	font-style: italic;
+}

@@ -18,7 +18,7 @@ class CarteTaxon extends ModuleControleur {
 	/** API "Carte" */
 	protected $api;
 
-	protected $taxon;
+	protected $numNom;
 	protected $largeurCarte;
 	protected $nomSci;
 
@@ -26,8 +26,7 @@ class CarteTaxon extends ModuleControleur {
 		$this->api = new Cartes($this->conteneur);
 		$this->apiTaxon = new Taxons($this->conteneur);
 		$this->largeurCarte = $this->conteneur->getParametre('largeur_carte');
-		$this->taxon = $this->capturerParam('taxon');
-		$this->nomSci = $this->capturerParam('nom-sci');
+		$this->numNom = $this->capturerParam('taxon');
 	}
 
 	public function executer() {
@@ -36,16 +35,19 @@ class CarteTaxon extends ModuleControleur {
 		$donnees['url_base'] = $this->obtenirUrlBase();
 		$donnees['url_base_liste_taxons'] = $donnees['url_base'] . "?module=liste-taxons";
 
-		$donnees['titre_carte'] = sprintf($this->conteneur->getParametre('titre_carte_taxon'), $this->nomSci);
+		$donnees['metadonnees_source'] = $this->conteneur->getParametre('metadonnees_source');
 
-		if ($this->taxon != null) {
-			$donnees['num_nom'] =  $this->taxon;
-			$this->taxon = 'nn:' . $this->taxon;
-			$donnees['carte'] = $this->api->getCarteTaxon($this->taxon, 600);
-			$donnees['legende'] = $this->api->getLegendeTaxon($this->taxon);
-			$donnees['infos_taxon'] = $this->apiTaxon->getInfosTaxon($this->taxon);
+		if ($this->numNom != null) {
+			$donnees['num_nom'] = $this->numNom;
+			$this->numNom = 'nn:' . $this->numNom;
+			$infosTaxon = $this->apiTaxon->getInfosTaxon($this->numNom);
+			$this->nomSci = $infosTaxon['nom_sci'];
+			$donnees['carte'] = $this->api->getCarteTaxon($this->numNom, 600);
+			$donnees['legende'] = $this->api->getLegendeTaxon($this->numNom);
+			$donnees['infos_taxon'] = $infosTaxon;
 			$donnees['type_zone'] = Config::get('type_zone');
 			$donnees['nb_zones_total'] = Config::get('nb_zones_total');
+			$donnees['titre_carte'] = sprintf($this->conteneur->getParametre('titre_carte_taxon'), $this->nomSci);
 		}
 
 		$this->setSortie(self::RENDU_CORPS, $this->getVue('carte-taxon', $donnees));

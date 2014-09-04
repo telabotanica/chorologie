@@ -1,5 +1,5 @@
 <h3>
-<?= $titre_carte ?>
+	<?= $titre_carte ?>
 </h3>
 
 <label>Cliquez sur une zone de la carte pour afficher la liste des autres taxons observés</label>
@@ -28,6 +28,8 @@
 		</div>
 	<?php endforeach; ?>
 </div>
+
+<?= $metadonnees_source ?>
 
 <script type="text/javascript">
 	$(document).trigger('carte-taxon_charge');

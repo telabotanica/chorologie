@@ -23,6 +23,7 @@ class Carte extends ModuleControleur {
 	protected function init() {
 		$this->api = new Cartes($this->conteneur);
 		$this->largeurCarte = $this->conteneur->getParametre('largeur_carte');
+		$this->proteges = $this->proteges || ($this->capturerParam('proteges') === '1');
 	}
 
 	public function executer() {
@@ -31,8 +32,9 @@ class Carte extends ModuleControleur {
 		$donnees['url_base'] = $this->obtenirUrlBase();
 
 		$donnees['url_base_liste_taxons'] = $donnees['url_base'] . "?module=liste-taxons";
-		$donnees['carte'] = $this->api->getCarte(600);
-		$donnees['legende'] = $this->api->getLegende();
+		$donnees['carte'] = $this->api->getCarte($this->largeurCarte, $this->proteges);
+		$donnees['legende'] = $this->api->getLegende($this->proteges);
+		$donnees['proteges'] = $this->proteges;
 
 		$this->setSortie(self::RENDU_CORPS, $this->getVue('carte', $donnees));
 	}

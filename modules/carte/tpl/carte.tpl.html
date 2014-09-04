@@ -1,4 +1,8 @@
-<h3>Carte des taxons</h3>
+<h3>Carte des taxons
+<?php if ($proteges): ?>
+	protégés
+<?php endif; ?>
+</h3>
 
 <div id="carte" data-url-base-liste-taxons="<?= $url_base_liste_taxons ?>">
 <?= $carte ?>
