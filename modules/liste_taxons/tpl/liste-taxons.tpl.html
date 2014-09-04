@@ -4,6 +4,9 @@
 <?php endif; ?>
 <?php if($nombre > 0): ?>
 	Liste des taxons
+	<?php if ($proteges): ?>
+		protégés
+	<?php endif; ?>
 	<?= $debut ?> à <?= min($fin, $nombre_total) ?> sur <?= $nombre_total ?>
 	<?php if($lettre != ''): ?>
 		commençant par <?= $lettre ?>
