@@ -47,7 +47,7 @@ class AppControleur {
 		$this->capturerParametres();
 		$this->initialiserRegistre();
 
-		spl_autoload_register(array(get_class(), 'chargerClasse'));
+		spl_autoload_register(array($this, 'chargerClasse'));
 
 		$this->executerModule();
 	}
