@@ -4,3 +4,12 @@
     top: -330px;
     width: 175px;
 }
+
+#bsh a, #bsh .pagination > li > a, #bsh .pagination > li > span {
+    color: #598000;
+}
+
+ul.pagination {
+    margin-bottom: -13px;
+    margin-top: 7px;
+}

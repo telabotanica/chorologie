@@ -56,6 +56,7 @@ if (PapControleur::$appControleur->getMetaTags() != '') {
  * Fonction d'affichage de Papyrus, pour le corps de page.
  */
 function afficherContenuCorps() {
+	// nous avons besoin de la div bsh car le le style bootstrap est limité à sa portée
 	return '<div id="bsh">'.PapControleur::$appControleur->getContenuCorps().'</div>';
 }
 
