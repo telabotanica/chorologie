@@ -21,5 +21,5 @@
 #bsh .pagination > .active > a, #bsh .pagination > .active > a:focus, #bsh .pagination > .active > a:hover, 
 #bsh .pagination > .active > span, #bsh .pagination > .active > span:focus, #bsh .pagination > .active > span:hover {
 	color: #598000;
-	background-color: #598000;
+	border-color: #598000;
 }
