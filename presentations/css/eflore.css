@@ -24,7 +24,7 @@
 	border-color: #598000;
 }
 
-#bsh a:active, #bsh .pagination > li > a:active  {
+#bsh a:active, #bsh a:focus, #bsh .pagination > li > a:focus {
 	border-color: #598000;
 	color: #598000;
 }

@@ -41,7 +41,7 @@ class ListeTaxons extends ModuleControleur {
 			$infosZone = $apiZonesGeo->infosZone($params_base['zone-geo']);
 			if(isset($infosZone['resultat']) && count($infosZone['resultat']) > 0) {
 				$zone = array_pop($infosZone['resultat']);
-				$parametresUtilises['nom-zone-geo'] = $zone['nom'];
+				$donnees['nom-zone-geo'] = $zone['nom'];
 			}
 		}
 
