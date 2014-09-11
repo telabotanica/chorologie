@@ -36,9 +36,8 @@ function gererEvenementClicCarte() {
 	$('svg').find('path').click(function() {
 		var idZone = $(this).attr('id');
 		idZone = idZone.replace('INSEE-D', '');
-		var titre = $(this).attr('title').split(" ");
 		var urlBaseListeTaxons = $('#carte').data('url-base-liste-taxons'),
-			url = urlBaseListeTaxons + '&zone-geo=' + idZone + '&nom-zone-geo=' + titre[0];
+			url = urlBaseListeTaxons + '&zone-geo=' + idZone;
 		window.location = url;
 	});
 	
@@ -46,9 +45,8 @@ function gererEvenementClicCarte() {
 	$('svg').find('polygon').click(function() {
 		var idZone = $(this).attr('id');
 		idZone = idZone.replace('INSEE-C-', '');
-		var titre = $(this).attr('title').split(" ");
 		var urlBaseListeTaxons = $('#carte').data('url-base-liste-taxons'),
-			url = urlBaseListeTaxons + '&zone-geo=' + idZone + '&nom-zone-geo=' + titre[0];
+			url = urlBaseListeTaxons + '&zone-geo=' + idZone;
 		window.location = url;
 	});
 }
