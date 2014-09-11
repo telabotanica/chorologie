@@ -9,6 +9,10 @@
     color: #598000;
 }
 
+#bsh a:hover, #bsh .pagination > li > a:hover, #bsh .pagination > li > span {
+	color:#FD8C13;
+}
+
 #bsh ul.pagination {
     margin-bottom: -13px;
     margin-top: 7px;
