@@ -25,6 +25,6 @@
 }
 
 #bsh a:active, #bsh .pagination > li > a:active  {
-	background-color: #598000;
 	border-color: #598000;
+	color: #598000;
 }
