@@ -30,15 +30,19 @@ class ListeTaxons extends ModuleControleur {
 			'nbParPage' => 20,
 			'lettre' => null,
 			'zone-geo' => null,
-			'nom-zone-geo' => null,	
 			'tri' => "nom_sci",
 			'ordre'	=> "ASC"			
 		));
 		
 		$params_base = array();
-		if($parametresUtilises['nom-zone-geo'] != null && $parametresUtilises['zone-geo'] != null) {
-			$params_base['nom-zone-geo'] = $parametresUtilises['nom-zone-geo'];
+		if($parametresUtilises['zone-geo'] != null) {
 			$params_base['zone-geo'] = $parametresUtilises['zone-geo'];
+			$apiZonesGeo = new ZonesGeo($this->conteneur);
+			$infosZone = $apiZonesGeo->infosZone($params_base['zone-geo']);
+			if(isset($infosZone['resultat']) && count($infosZone['resultat']) > 0) {
+				$zone = array_pop($infosZone['resultat']);
+				$parametresUtilises['nom-zone-geo'] = $zone['nom'];
+			}
 		}
 
 		// Transmisison des paramètres au squelette

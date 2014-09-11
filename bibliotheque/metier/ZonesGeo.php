@@ -28,5 +28,15 @@ class ZonesGeo extends ChorologieDAO {
 		$donnees = $this->chargerDonnees($url);
 		return $donnees;
 	}
+	
+	/**
+	 * Appelle le toileservice pour obtenir les informations sur une zone géo par son code
+	 */
+	public function infosZone($code) {
+		$squeletteUrl = $this->conteneur->getParametre('tpl_url_service_infos_zone_geo');
+		$url = sprintf($squeletteUrl, $code);
+		$donnees = $this->chargerDonnees($url);
+		return $donnees;
+	}
 }
 ?>
