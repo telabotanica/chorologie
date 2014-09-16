@@ -28,7 +28,7 @@ class ZonesGeo extends ChorologieDAO {
 		$donnees = $this->chargerDonnees($url);
 		return $donnees;
 	}
-	
+
 	/**
 	 * Appelle le toileservice pour obtenir les informations sur une zone géo par son code
 	 */

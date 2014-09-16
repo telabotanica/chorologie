@@ -16,9 +16,12 @@ class ListeTaxons extends ModuleControleur {
 
 	/** API "Taxons" */
 	protected $api;
+	/** API "Zones Géographiques" */
+	protected $apiZonesGeo;
 
 	protected function init() {
 		$this->api = new Taxons($this->conteneur);
+		$this->apiZonesGeo = new ZonesGeo($this->conteneur);
 		$this->proteges = $this->proteges || ($this->capturerParam('proteges') === '1');
 	}
 
@@ -35,13 +38,13 @@ class ListeTaxons extends ModuleControleur {
 		));
 		
 		$params_base = array();
+		$donnees['nom_zone_geo'] = null;
 		if($parametresUtilises['zone-geo'] != null) {
 			$params_base['zone-geo'] = $parametresUtilises['zone-geo'];
-			$apiZonesGeo = new ZonesGeo($this->conteneur);
-			$infosZone = $apiZonesGeo->infosZone($params_base['zone-geo']);
+			$infosZone = $this->apiZonesGeo->infosZone($params_base['zone-geo']);
 			if(isset($infosZone['resultat']) && count($infosZone['resultat']) > 0) {
 				$zone = array_pop($infosZone['resultat']);
-				$donnees['nom-zone-geo'] = $zone['nom'];
+				$donnees['nom_zone_geo'] = $zone['nom'];
 			}
 		}
 
@@ -116,9 +119,8 @@ class ListeTaxons extends ModuleControleur {
 
 		// mini correction pour extract qui ne tolere pas les variables avec des "-"
 		// tout comme php en général
-		$donnees['nom_zone_geo'] = $donnees['nom-zone-geo'];
 		$donnees['zone_geo'] = $donnees['zone-geo'];
-		
+
 		// possibilités de tailles de page
 		$donnees['tailles_page'] = array(10, 20, 50, 100);
 		$this->setSortie(self::RENDU_CORPS, $this->getVue('liste-taxons', $donnees));
