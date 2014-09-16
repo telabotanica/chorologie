@@ -43,3 +43,10 @@ p#chorologie_pied_page {
 .nom_sci {
 	font-style: italic;
 }
+
+#pagination-par-lettre > a {
+	margin-right: 4px;
+}
+#pagination-par-lettre > a > strong {
+	font-size: 16px;
+}

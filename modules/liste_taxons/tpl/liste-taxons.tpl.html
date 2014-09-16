@@ -22,10 +22,20 @@
 <?php endif; ?>
 </label>
 <br/>
-<a href="<?= $url_module ?>&nbParPage=<?= $nbParPage ?>">tous</a>
+<div id="pagination-par-lettre">
+<a href="<?= $url_module ?>&nbParPage=<?= $nbParPage ?>">
+	<?php if($lettre == null): ?><strong><?php endif; ?>
+	tous
+	<?php if($lettre == null): ?></strong><?php endif; ?>
+</a>
 <?php foreach($lettres as $l): ?>
-	<a href="<?= $url_module ?>&nbParPage=<?= $nbParPage ?>&lettre=<?= $l ?>"><?= $l ?></a>
+	<a href="<?= $url_module ?>&nbParPage=<?= $nbParPage ?>&lettre=<?= $l ?>">
+		<?php if($l == $lettre): ?><strong><?php endif; ?>
+		<?= $l ?>
+		<?php if($l == $lettre): ?></strong><?php endif; ?>
+	</a>
 <?php endforeach; ?>
+</div>
 
 <form method="get" action="<?= $url_base ?>" class="form form-inline">
 	<input type="hidden" value="<?= $module ?>" name="module" />
@@ -118,7 +128,7 @@
 				<?php endif; ?>
 			</td>
 			<td>
-				<a href="<?= $url_base_eflore_bdtfx ?><?= $taxon['num_nom'] ?>">BDTFXnn<?= $taxon['num_nom'] ?></a>
+				<a href="<?= $url_base_eflore_bdtfx ?><?= $taxon['num_nom'] ?>" target="_blank">BDTFXnn<?= $taxon['num_nom'] ?></a>
 			</td>
 		</tr>
 		<?php endforeach; ?>
