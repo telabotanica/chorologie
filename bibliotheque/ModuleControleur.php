@@ -38,13 +38,13 @@ class ModuleControleur extends Controleur {
 		parent::__construct();
 		$this->conteneur = $conteneur;
 
-		// chargement d'une double config ? Utilisé avec Papyrus pour permettre
+		// Chargement d'une double config. Utilisé avec Papyrus pour permettre
 		// une config différente pour certaines entrées de menu
 		if (isset($_GET['config'])) {
 			$this->secondeConfig = $_GET['config'];
 		}
 		if ($this->secondeConfig != null) {
-			echo "coucou";
+			Config::chargerFichierContexte($this->secondeConfig);
 		}
 
 		// mode "taxons protégés uniquement" ?
