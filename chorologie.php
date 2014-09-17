@@ -1,4 +1,10 @@
 <?php
+
+// bricolage pour Papyrus
+class PapControleur {
+    public static $appControleur;
+}
+
 // Le fichier Framework.php du Framework de Tela Botanica doit être appelé avant tout autre chose dans l'application.
 // Sinon, rien ne sera chargé.
 // L'emplacement du Framework peut varier en fonction de l'environnement (test, prod...). Afin de faciliter la configuration
@@ -29,6 +35,7 @@ if (!file_exists($framework)) {
 	try {
 		$conteneur = Conteneur::getInstance();
 		$appControleur = new AppControleur($conteneur);
+		PapControleur::$appControleur = $appControleur;
 		$appControleur->executer();
 	} catch (Exception $e) {
 		$message = $e->getMessage()."\nLigne : ".$e->getLine()."\nFichier : ".$e->getFile();
