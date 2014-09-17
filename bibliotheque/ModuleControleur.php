@@ -31,10 +31,21 @@ class ModuleControleur extends Controleur {
 	protected $nom;
 	/** si true, ne montre que les taxons protégés; sinon montre tout */
 	protected $proteges;
+	/** si spécifiée, sera chargée en plus (écrasement) de la config de base */
+	protected $secondeConfig;
 	
 	public function __construct(Conteneur $conteneur) {
 		parent::__construct();
 		$this->conteneur = $conteneur;
+
+		// Chargement d'une double config. Utilisé avec Papyrus pour permettre
+		// une config différente pour certaines entrées de menu
+		if (isset($_GET['config'])) {
+			$this->secondeConfig = $_GET['config'];
+		}
+		if ($this->secondeConfig != null) {
+			Config::chargerFichierContexte($this->secondeConfig);
+		}
 
 		// mode "taxons protégés uniquement" ?
 		$this->proteges = ($this->conteneur->getParametre('proteges') === '1');
