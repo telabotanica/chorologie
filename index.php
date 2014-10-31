@@ -21,6 +21,17 @@ $css_specifique = Config::get('source_donnees');
 		<meta name="robots" content="index,follow" />
 		<meta name="author" content="Tela Botanica" />
 
+		<!-- OpenGraph pour Facebook, Pinterest, Google+ -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Répartition géographique des plantes" />
+		<meta property="og:site_name" content="Tela Botanica" />
+		<meta property="og:description" content="Consultez la liste des espèces par zone géographique" />
+		<meta property="og:image" content="http://resources.tela-botanica.org/tb/img/256x256/carre_englobant.png" />
+		<meta property="og:image:type" content="image/png" /> 
+		<meta property="og:image:width" content="256" /> 
+		<meta property="og:image:height" content="256" />
+		<meta property="og:locale" content="fr_FR" />
+
 		<!-- Favicones -->
 		<link rel="icon" type="image/png" href="http://www.tela-botanica.org/sites/commun/generique/images/favicone/tela_botanica.png" />
 		<link rel="shortcut icon" type="image/x-icon" href="http://www.tela-botanica.org/sites/commun/generique/images/favicone/tela_botanica.ico" />
