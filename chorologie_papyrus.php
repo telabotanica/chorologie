@@ -54,7 +54,7 @@ if (PapControleur::$appControleur->getMetaTags() != '') {
 GEN_stockerMetaProperty('og:type', 'website');
 GEN_stockerMetaProperty('og:title', 'Chorologie');
 GEN_stockerMetaProperty('og:site_name', 'Tela Botanica');
-GEN_stockerMetaProperty('og:description', 'Représentation interactive de la répartition des espèces sur une zone géographique');
+GEN_stockerMetaProperty('og:description', 'Repr&eacute;sentation interactive de la r&eacute;partition des esp&egrave;ces sur une zone g&eacute;ographique');
 GEN_stockerMetaProperty('og:image', 'http://resources.tela-botanica.org/tb/img/256x256/carre_englobant.png');
 GEN_stockerMetaProperty('og:image:type', 'image/png');
 GEN_stockerMetaProperty('og:image:width', '256');
