@@ -50,6 +50,17 @@ if (PapControleur::$appControleur->getMetaTags() != '') {
 	GEN_modifierMetaName('keywords', PapControleur::$appControleur->getMetaTags());
 }
 
+// Meta OpenGraph pour les réseaux sociaux
+GEN_stockerMetaProperty('og:type', 'website');
+GEN_stockerMetaProperty('og:title', 'Chorologie');
+GEN_stockerMetaProperty('og:site_name', 'Tela Botanica');
+GEN_stockerMetaProperty('og:description', 'Représentation interactive de la répartition des espèces sur une zone géographique');
+GEN_stockerMetaProperty('og:image', 'http://resources.tela-botanica.org/tb/img/256x256/carre_englobant.png');
+GEN_stockerMetaProperty('og:image:type', 'image/png');
+GEN_stockerMetaProperty('og:image:width', '256');
+GEN_stockerMetaProperty('og:image:height', '256');
+GEN_stockerMetaProperty('og:locale', 'fr_FR');
+
 // +--------------------------------------------------------------------------------------------------+
 // Fonctions d'affichage dans Papyrus
 /**
