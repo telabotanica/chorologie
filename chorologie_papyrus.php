@@ -51,15 +51,8 @@ if (PapControleur::$appControleur->getMetaTags() != '') {
 }
 
 // Meta OpenGraph pour les réseaux sociaux
-GEN_stockerMetaProperty('og:type', 'website');
-GEN_stockerMetaProperty('og:title', 'R&eacute;partition g&eacute;ographique des plantes');
-GEN_stockerMetaProperty('og:site_name', 'Tela Botanica');
-GEN_stockerMetaProperty('og:description', 'Consultez la liste des esp&egrave;ces par zone g&eacute;ographique');
-GEN_stockerMetaProperty('og:image', 'http://resources.tela-botanica.org/tb/img/256x256/carre_englobant.png');
-GEN_stockerMetaProperty('og:image:type', 'image/png');
-GEN_stockerMetaProperty('og:image:width', '256');
-GEN_stockerMetaProperty('og:image:height', '256');
-GEN_stockerMetaProperty('og:locale', 'fr_FR');
+GEN_modifierMetaProperty('og:title', 'R&eacute;partition g&eacute;ographique des plantes');
+GEN_modifierMetaProperty('og:description', 'Consultez la liste des esp&egrave;ces par zone g&eacute;ographique');
 
 // +--------------------------------------------------------------------------------------------------+
 // Fonctions d'affichage dans Papyrus
