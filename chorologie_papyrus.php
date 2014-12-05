@@ -22,7 +22,7 @@ if (isset($GLOBALS['_GEN_commun']['info_application']->module) && !isset($_GET['
 /** Inclusion du fichier principal de l'application*/
 require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'chorologie.php';
 
-$chemin = '/eflore-test/chorologie/';
+$chemin = Config::get('dossier_racine_application');
 $chemin_commun = 'http://www.tela-botanica.org/commun/';
 $url_css_bootstrap = Config::get('url_css_bootstrap');
 $url_jquery = Config::get('url_jquery');
