@@ -33,8 +33,8 @@ $css_specifique = Config::get('source_donnees');
 		<meta property="og:locale" content="fr_FR" />
 
 		<!-- Favicones -->
-		<link rel="icon" type="image/png" href="http://www.tela-botanica.org/sites/commun/generique/images/favicone/tela_botanica.png" />
-		<link rel="shortcut icon" type="image/x-icon" href="http://www.tela-botanica.org/sites/commun/generique/images/favicone/tela_botanica.ico" />
+		<link rel="icon" type="image/png" href="http://resources.tela-botanica.org/tb/img/16x16/favicon.png" />
+		<link rel="shortcut icon" type="image/x-icon" href="http://resources.tela-botanica.org/tb/img/16x16/favicon.ico" />
 
 		<!-- CSS -->
 		<link href="<?= $url_css_bootstrap ?>" rel="stylesheet" type="text/css" />
@@ -57,7 +57,7 @@ $css_specifique = Config::get('source_donnees');
 			<div id="zone-botanique" class="zone-haut">
 				<h1 id="zone-logo-tela">
 					<a href="http://www.tela-botanica.org/site:accueil" title="Retour à l'accueil">
-						<img src="http://www.tela-botanica.org/sites/botanique/generique/images/graphisme/logo_tela_fond_vert.png" alt="Tela Botanica"/>
+						<img src="http://resources.tela-botanica.org/tb/img/135x102/logo_carre_officiel.png" alt="Tela Botanica"/>
 					</a>
 				</h1>
 				<h2>Le réseau de la botanique francophone</h2>
