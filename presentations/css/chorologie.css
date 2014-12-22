@@ -50,3 +50,7 @@ p#chorologie_pied_page {
 #pagination-par-lettre > a > strong {
 	font-size: 16px;
 }
+
+td.lien_eflore {
+    white-space: nowrap;
+}

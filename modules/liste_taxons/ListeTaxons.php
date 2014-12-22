@@ -62,6 +62,7 @@ class ListeTaxons extends ModuleControleur {
 		
 		// URL pour les liens eFlore
 		$donnees['url_base_eflore_bdtfx'] = $this->conteneur->getParametre('url_base_eflore_bdtfx');
+		$donnees['url_logo_tb'] = $this->conteneur->getParametre('url_logo_tb');
 
 		// Récupération de la liste des taxons
 		$depart = ($parametresUtilises['page'] - 1) * $parametresUtilises['nbParPage'];
