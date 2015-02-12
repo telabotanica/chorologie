@@ -54,3 +54,13 @@ p#chorologie_pied_page {
 td.lien_eflore {
     white-space: nowrap;
 }
+
+/* réduction du padding de cases de tableau par défaut de Bootstrap */
+#bsh .table > tbody > tr > td,
+#bsh .table > tbody > tr > th,
+#bsh .table > tfoot > tr > td,
+#bsh .table > tfoot > tr > th,
+#bsh .table > thead > tr > td,
+#bsh .table > thead > tr > th {
+	padding: 6px 8px;
+}
