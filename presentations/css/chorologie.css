@@ -64,3 +64,7 @@ td.lien_eflore {
 #bsh .table > thead > tr > th {
 	padding: 6px 8px;
 }
+
+.no-border {
+	border: none;
+}

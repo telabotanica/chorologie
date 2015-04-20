@@ -136,16 +136,22 @@ class ListeTaxons extends ModuleControleur {
 						$statut = $this->conteneur->getRestClient()->consulter($url);
 						$statut = json_decode($statut, true);
 						$description = '';
+						$intitule = '';
 						if (! empty($statut['resultat'])) {
 							if (! empty($statut['resultat']['intitule'])) {
-								$description .= $statut['resultat']['intitule'];
+								$intitule = $statut['resultat']['intitule'];
+								$description .= $intitule;
 							}
 							if ($description != '') $description .= '. ';
 							if (! empty($statut['resultat']['description'])) {
 								$description .= $statut['resultat']['description'];
 							}
 						}
-						$donnees['protection_statuts'][$prot . " (" . $abr . ")"] = $description;
+						$donnees['protection_statuts'][$prot] = array(
+							'abr' =>  $prot . " (" . $abr . ")",
+							'desc' => $description,
+							'intitule' => $intitule
+						);
 					}
 				}
 			}
@@ -167,7 +173,10 @@ class ListeTaxons extends ModuleControleur {
 								$description .= '<a target="_blank" href="' . $texte['resultat']['url'] . '">' . $texte['resultat']['url'] . '</a>';
 							}
 						}
-						$donnees['protection_textes'][$prot . " (" . $abr . ")"] = $description;
+						$donnees['protection_textes'][$prot] = array(
+							'abr' => $prot . " (" . $abr . ")",
+							'desc' => $description
+						);
 					}
 				}
 			}

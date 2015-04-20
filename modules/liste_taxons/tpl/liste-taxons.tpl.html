@@ -120,15 +120,17 @@
 			</td>
 			<td>
 				<?php if($taxon['statuts_protection']): ?>
-					<?php if(is_array($taxon['statuts_protection'])): ?>
-						<?php foreach ($taxon['statuts_protection'] as $protection): ?>
-						<a href="<?= $protection['lien'] ?>" target="_blank">
-							<?= $protection['zone'] ?>
-						</a>
-						<?php endforeach; ?>
-					<?php else: ?>
-						<?= $taxon['statuts_protection'] ?>
+					<?php
+						$sps = explode(',', $taxon['statuts_protection']);
+					?>
+					<span
+					<?php if(count($sps) == 1): ?>
+						title="<?= $protection_statuts[$sps[0]]['intitule'] ?>"
 					<?php endif; ?>
+					>
+						<?= $taxon['statuts_protection'] ?>
+						<a class="no-border" href="#legende-sp-<?= trim($sps[0]) ?>">*</a>
+					</span>
 				<?php endif; ?>
 			</td>
 			<td class="lien_eflore">
@@ -149,10 +151,10 @@
 		</tr>
 	</thead>
 	<tbody>
-		<?php foreach($protection_statuts as $abr => $statut): ?>
+		<?php foreach($protection_statuts as $code => $statut): ?>
 		<tr>
-			<td><?= $abr ?></td>
-			<td><?= $statut ?></td>
+			<td id="legende-sp-<?= $code ?>"><?= $statut['abr'] ?></td>
+			<td><?= $statut['desc'] ?></td>
 		</tr>
 		<?php endforeach; ?>
 	</tbody>
@@ -168,10 +170,10 @@
 		</tr>
 	</thead>
 	<tbody>
-	<?php foreach($protection_textes as $abr => $texte): ?>
+	<?php foreach($protection_textes as $code => $texte): ?>
 		<tr>
-			<td><?= $abr ?></td>
-			<td><?= $texte ?></td>
+			<td id="legende-sp-<?= $code ?>"><?= $texte['abr'] ?></td>
+			<td><?= $texte['desc'] ?></td>
 		</tr>
 	<?php endforeach; ?>
 	</tbody>
