@@ -140,6 +140,44 @@
 	</tbody>
 </table>
 
+<?php if(count($protection_statuts)> 0): ?>
+<h4>Statuts de protection</h4>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>Abréviation</td><td>Description</td>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach($protection_statuts as $abr => $statut): ?>
+		<tr>
+			<td><?= $abr ?></td>
+			<td><?= $statut ?></td>
+		</tr>
+		<?php endforeach; ?>
+	</tbody>
+</table>
+<?php endif; ?>
+
+<?php if(count($protection_textes)> 0): ?>
+<h4>Textes de protection</h4>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>Abréviation</td><td>Description</td>
+		</tr>
+	</thead>
+	<tbody>
+	<?php foreach($protection_textes as $abr => $texte): ?>
+		<tr>
+			<td><?= $abr ?></td>
+			<td><?= $texte ?></td>
+		</tr>
+	<?php endforeach; ?>
+	</tbody>
+</table>
+<?php endif; ?>
+
 <script type="text/javascript">
 	$(document).trigger('liste-taxons_charge');
 </script>

@@ -102,14 +102,79 @@ class ListeTaxons extends ModuleControleur {
 			$donnees['taxons'] = $taxons['resultat'];
 		}
 
-		// Extraction du premier nom commun et décodage des statuts de protection
+		// Extraction du premier nom commun et groupement de status de protection
+		$donnees['protection_statuts'] = array();
+		$protections = array();
 		foreach ($donnees['taxons'] as $k => $taxon) {
 			if ($taxon['noms_vernaculaires'] != null) {
 				$nomCommun = explode(',', $taxon['noms_vernaculaires']);
 				$nomCommun = $nomCommun[0];
 				$donnees['taxons'][$k]['nom_commun'] = $nomCommun;
 			}
+			if ($taxon['statuts_protection'] != null) {
+				$statutsProt = explode(',', $taxon['statuts_protection']);
+				$protections = array_merge($protections, array_map('trim', $statutsProt));
+			}
 		}
+		$protections = array_unique($protections);
+
+		// extraction des abréviations des statuts et textes de protection
+		// mentionnés dans la liste en cours, pour la légende
+		$donnees['protection_statuts'] = array();
+		$donnees['protection_textes'] = array();
+		$abr_statuts = $this->conteneur->getParametre('protection_abr_statuts');
+		$abr_textes = $this->conteneur->getParametre('protection_abr_textes');
+		$tpl_url_service_statuts = $this->conteneur->getParametre('tpl_url_service_statuts');
+		$tpl_url_service_textes = $this->conteneur->getParametre('tpl_url_service_textes');
+		foreach ($protections as $prot) {
+			// statuts
+			foreach ($abr_statuts as $abr => $exp) {
+				if (preg_match($exp, $prot)) {
+					if (! array_key_exists($prot, $donnees['protection_statuts'])) {
+						// récupération du statut à l'aide du service
+						$url = sprintf($tpl_url_service_statuts, $abr);
+						$statut = $this->conteneur->getRestClient()->consulter($url);
+						$statut = json_decode($statut, true);
+						$description = '';
+						if (! empty($statut['resultat'])) {
+							if (! empty($statut['resultat']['intitule'])) {
+								$description .= $statut['resultat']['intitule'];
+							}
+							if ($description != '') $description .= '. ';
+							if (! empty($statut['resultat']['description'])) {
+								$description .= $statut['resultat']['description'];
+							}
+						}
+						$donnees['protection_statuts'][$prot . " (" . $abr . ")"] = $description;
+					}
+				}
+			}
+			// textes
+			foreach ($abr_textes as $abr => $exp) {
+				if (preg_match($exp, $prot)) {
+					if (! array_key_exists($prot, $donnees['protection_textes'])) {
+						// récupération du texte à l'aide du service
+						$url = sprintf($tpl_url_service_textes, $abr);
+						$texte = $this->conteneur->getRestClient()->consulter($url);
+						$texte = json_decode($texte, true);
+						$description = '';
+						if (! empty($texte['resultat'])) {
+							if (! empty($texte['resultat']['intitule'])) {
+								$description .= $texte['resultat']['intitule'];
+							}
+							if ($description != '') $description .= '. ';
+							if (! empty($texte['resultat']['url'])) {
+								$description .= '<a target="_blank" href="' . $texte['resultat']['url'] . '">' . $texte['resultat']['url'] . '</a>';
+							}
+						}
+						$donnees['protection_textes'][$prot . " (" . $abr . ")"] = $description;
+					}
+				}
+			}
+		}
+		ksort($donnees['protection_statuts']);
+		ksort($donnees['protection_textes']);
+
 		$donnees['proteges'] = $this->proteges;
 
 		// de A à Z
