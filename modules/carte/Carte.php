@@ -35,6 +35,8 @@ class Carte extends ModuleControleur {
 		$donnees['carte'] = $this->api->getCarte($this->largeurCarte, $this->proteges);
 		$donnees['legende'] = $this->api->getLegende($this->proteges);
 		$donnees['proteges'] = $this->proteges;
+		// Vocabulaire
+		$donnees['type'] = $this->conteneur->getParametre("type_zone");
 
 		$this->setSortie(self::RENDU_CORPS, $this->getVue('carte', $donnees));
 	}

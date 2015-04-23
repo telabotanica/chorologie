@@ -1,8 +1,13 @@
-<h3>Carte des taxons
+<h3>Carte des <?= $type ?></h3>
+
+<label>Cliquer sur une des <?= $type ?> pour faire apparaître la liste des taxons
 <?php if ($proteges): ?>
 	protégés
 <?php endif; ?>
-</h3>
+observés</label>
+<br/>
+La couleur est proportionnelle au nombre de taxons observés
+<br/>
 
 <div id="carte" data-url-base-liste-taxons="<?= $url_base_liste_taxons ?>">
 <?= $carte ?>

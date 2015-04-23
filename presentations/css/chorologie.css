@@ -15,6 +15,10 @@ p#chorologie_pied_page {
 	margin-top: 10px;
 }
 
+#carte {
+	margin-top: 20px;
+}
+
 #carte polygon, #carte path {
 	cursor: pointer;
 }
