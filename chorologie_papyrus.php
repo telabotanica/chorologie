@@ -16,7 +16,10 @@
 
 // Gestion des paramêtres passés par Papyrus
 if (isset($GLOBALS['_GEN_commun']['info_application']->module) && !isset($_GET['module'])) {
-		$_GET['module'] = $GLOBALS['_GEN_commun']['info_application']->module;
+	$_GET['module'] = $GLOBALS['_GEN_commun']['info_application']->module;
+}
+if (isset($GLOBALS['_GEN_commun']['info_application']->proteges) && !isset($_GET['proteges'])) {
+	$_GET['proteges'] = $GLOBALS['_GEN_commun']['info_application']->proteges;
 }
 
 /** Inclusion du fichier principal de l'application*/
