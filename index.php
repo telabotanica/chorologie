@@ -1,6 +1,10 @@
 <?php
 /** Inclusion du fichier principal de l'application*/
 require_once 'chorologie.php';
+restore_error_handler();
+restore_exception_handler();
+$appControleur = chorologie_initialisation();
+
 $url_css_bootstrap = Config::get('url_css_bootstrap');
 $url_jquery = Config::get('url_jquery');
 $css_specifique = Config::get('source_donnees');

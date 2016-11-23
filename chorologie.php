@@ -13,7 +13,7 @@ class PapControleur {
 // Chemin du fichier chargeant le framework requis
 $framework = dirname(__FILE__).'/framework.php';
 if (!file_exists($framework)) {
-	$e = "Veuillez paramêtrer l'emplacement et la version du Framework dans le fichier $framework";
+	$e = "Veuillez paramétrer l'emplacement et la version du Framework dans le fichier $framework";
 	trigger_error($e, E_USER_ERROR);
 } else {
 	// Inclusion du Framework
@@ -30,7 +30,11 @@ if (!file_exists($framework)) {
 	if (Config::get('benchmark_chrono')) {
 		Chronometre::chrono("Lancement de Chorologie");
 	}
+}
 
+// Découplage entre le chargement du JPFramework et l'initialisation de l'appli,
+// pour avoir le temps d'écraser la config dans le fichier d'amorçage appelant
+function chorologie_initialisation() {
 	// Initialisation du controleur principal de l'application
 	try {
 		$conteneur = Conteneur::getInstance();
@@ -45,5 +49,7 @@ if (!file_exists($framework)) {
 	if (Config::get('benchmark_chrono')) {
 		Chronometre::chrono("Arrêt de Chorologie");
 	}
+
+	return $appControleur;
 }
 ?>

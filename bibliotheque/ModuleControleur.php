@@ -365,7 +365,7 @@ class ModuleControleur extends Controleur {
 	
 	public function obtenirUrlBasePagination($parametresUtilises) {
 		$params_pagination = $parametresUtilises;
-		unset($params_pagination['page']);
+		unset($params_pagination['idxPage']);
 		unset($params_pagination['nbParPage']);
 		$url_base_pagination = $this->obtenirUrlModule(array_filter($params_pagination));
 		

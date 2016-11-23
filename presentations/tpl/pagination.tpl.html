@@ -1,14 +1,14 @@
 <!-- Squelette de paginateur prêt pour Bootstrap 3 -->
 <ul class="pagination" id="Jožin">
-	<li><a href="<?= $url_base_pagination ?>&page=<?= max(1, $page - 1) ?>&nbParPage=<?= $nbParPage ?>">&lt;</a></li>
+	<li><a href="<?= $url_base_pagination ?>&idxPage=<?= max(1, $idxPage - 1) ?>&nbParPage=<?= $nbParPage ?>">&lt;</a></li>
 	<?php foreach ($pages as $p): ?>
-	<li <?php if($p == $page): ?>class="active"<?php endif; ?>>
+	<li <?php if($p == $idxPage): ?>class="active"<?php endif; ?>>
 		<?php if($p != false): ?>
-			<a href="<?= $url_base_pagination ?>&page=<?= $p ?>&nbParPage=<?= $nbParPage ?>"><?= $p ?></a>
+			<a href="<?= $url_base_pagination ?>&idxPage=<?= $p ?>&nbParPage=<?= $nbParPage ?>"><?= $p ?></a>
 		<?php else: ?>
 			<a href="#" onClick="return false;">...</a>
 		<?php endif; ?>
 	</li>
 	<?php endforeach; ?>
-	<li><a href="<?= $url_base_pagination ?>&page=<?= min($page_max, $page + 1) ?>&nbParPage=<?= $nbParPage ?>">&gt;</a></li>
+	<li><a href="<?= $url_base_pagination ?>&idxPage=<?= min($page_max, $idxPage + 1) ?>&nbParPage=<?= $nbParPage ?>">&gt;</a></li>
 </ul>
