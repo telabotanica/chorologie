@@ -31,7 +31,7 @@ function chorologie_scripts_et_styles() {
 	wp_enqueue_script('chorologie-general', $chemin_chorologie_http . '/presentations/js/chorologie.js');
 
 	// Styles
-	wp_enqueue_style('bootstrap-limited', 'http://resources.tela-botanica.org/bootstrap/3.2.0/css/bootstrap-limited.min.css');
+	wp_enqueue_style('bootstrap-limited', 'https://resources.tela-botanica.org/bootstrap/3.2.0/css/bootstrap-limited.min.css');
 	wp_enqueue_style('chorologie', $chemin_chorologie_http . '/presentations/css/chorologie.css');
 	wp_enqueue_style('chorologie_specifique', $chemin_chorologie_http . '/presentations/css/eflore.css'); // @TODO adapter
 }
