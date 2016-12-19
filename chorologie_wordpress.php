@@ -38,10 +38,6 @@ function chorologie_scripts_et_styles() {
 chorologie_initialisation(); // défini dans chorologie.php
 
 // Affichage du contenu de l'application
-function eflore_get_contenu() {
-	return AppControleur::getContenuCorps();
-}
-
 function chorologie_get_contenu() {
 	// nous avons besoin de la div bsh car le le style bootstrap est limité à sa portée
 	return '<div id="bsh">'.PapControleur::$appControleur->getContenuCorps().'</div>';
