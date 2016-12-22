@@ -54,3 +54,7 @@ function chorologie_get_contenu_pied() {
 function chorologie_get_contenu_navigation() {
 	return PapControleur::$appControleur->getContenuNavigation();
 }
+
+function chorologie_get_module() {
+	return PapControleur::$appControleur->getModule();
+}
