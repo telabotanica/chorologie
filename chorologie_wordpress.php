@@ -24,8 +24,6 @@ function chorologie_scripts_et_styles() {
 	global $chemin_chorologie_http;
 	
 	// Scripts
-	// @TODO remplacer ce patch cracra par une mise à jour du code JS de Chorologie
-	wp_enqueue_script('jquery-noconflict-compat', 'https://resources.tela-botanica.org/jquery/jquery-noconflict-compat.js');
 	wp_enqueue_script('chorologie-general', $chemin_chorologie_http . '/presentations/js/chorologie.js');
 
 	// Styles
