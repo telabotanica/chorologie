@@ -1,6 +1,6 @@
 <h3>Carte des <?= $type ?></h3>
 
-<label>Cliquer sur une des <?= $type ?> pour faire apparaître la liste des taxons
+<label>Cliquer sur les <?= $type ?> pour faire apparaître la liste des taxons
 <?php if ($proteges): ?>
 	protégés
 <?php endif; ?>
@@ -24,5 +24,5 @@ La couleur est proportionnelle au nombre de taxons observés
 </div>
 
 <script type="text/javascript">
-	$(document).trigger('carte-charge');
+	jq(document).trigger('carte-charge');
 </script>

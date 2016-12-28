@@ -52,6 +52,14 @@ class AppControleur {
 		$this->executerModule();
 	}
 
+	/**
+	 * Retourne le nom du module en cours (défini par GET ou par la config),
+	 * pour l'intégration Wordpress notamment
+	 */
+	public function getModule() {
+		return $this->parametres['module'];
+	}
+
 	protected function gererSession() {
 		if ($this->conteneur->getParametre('session_demarrage')) {
 			// Attribution d'un nom à la session

@@ -24,6 +24,7 @@ if (isset($GLOBALS['_GEN_commun']['info_application']->proteges) && !isset($_GET
 
 /** Inclusion du fichier principal de l'application*/
 require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'chorologie.php';
+chorologie_initialisation();
 
 $chemin = Config::get('dossier_racine_application');
 $chemin_commun = 'http://www.tela-botanica.org/commun/';
@@ -42,7 +43,7 @@ GEN_stockerFichierScript('jquery', $url_jquery);
 GEN_stockerFichierScript('chorologie-general', $chemin.'presentations/js'.DS.'chorologie.js');
 
 // +--------------------------------------------------------------------------------------------------+
-// Remplacement de méta tags fournit par Papyrus par ceux créés dans l'appli
+// Remplacement de méta tags fournis par Papyrus par ceux créés dans l'appli
 if (PapControleur::$appControleur->getMetaTitre() != '') {
 	$GLOBALS['_PAPYRUS_']['rendu']['TITRE_PAGE'] = PapControleur::$appControleur->getMetaTitre();
 }

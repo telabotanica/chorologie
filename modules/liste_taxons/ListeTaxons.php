@@ -29,7 +29,7 @@ class ListeTaxons extends ModuleControleur {
 		$donnees = array();
 
 		$parametresUtilises = $this->capturerParams(array(
-			'page' => 1,
+			'idxPage' => 1,
 			'nbParPage' => 20,
 			'lettre' => null,
 			'zone-geo' => null,
@@ -65,7 +65,7 @@ class ListeTaxons extends ModuleControleur {
 		$donnees['url_logo_tb'] = $this->conteneur->getParametre('url_logo_tb');
 
 		// Récupération de la liste des taxons
-		$depart = ($parametresUtilises['page'] - 1) * $parametresUtilises['nbParPage'];
+		$depart = ($parametresUtilises['idxPage'] - 1) * $parametresUtilises['nbParPage'];
 		$taxons = $this->api->listeTaxons(
 			$depart,
 			$parametresUtilises['nbParPage'],
@@ -83,7 +83,7 @@ class ListeTaxons extends ModuleControleur {
 		$donnees['fin'] = $donnees['debut'] + $donnees['nombre'];
 
 		$nbPages = Pagination::nombreDePagesSelonResultats($donnees['nombre_total'], $taxons['entete']['limite']);
-		$donnees['pages'] = Pagination::tableauPages($donnees['page'], $nbPages, 5);
+		$donnees['pages'] = Pagination::tableauPages($donnees['idxPage'], $nbPages, 5);
 		$donnees['page_max'] = $nbPages;
 		$donnees['paginateur'] = $this->getVueCommune('pagination', $donnees);
 
