@@ -121,14 +121,23 @@
 			<td>
 				<?php if($taxon['statuts_protection']): ?>
 					<?php
-						$sps = explode(',', $taxon['statuts_protection']);
+						$sps = array();
+						// eFlore renvoie un tableau, alors que Gentiana renvoie une
+						// liste séparée par des virgules @TODO harmoniser en amont
+						if (is_array($taxon['statuts_protection']) && count($taxon['statuts_protection']) > 0) {
+							foreach ($taxon['statuts_protection'] as $sp) {
+								$sps[] = $sp['zone'];
+							}
+						} else {
+							$sps = explode(',', $taxon['statuts_protection']);
+						}
 					?>
 					<span
 					<?php if(count($sps) == 1): ?>
 						title="<?= $protection_statuts[$sps[0]]['intitule'] ?>"
 					<?php endif; ?>
 					>
-						<?= $taxon['statuts_protection'] ?>
+						<?= implode(', ', $sps) ?>
 						<a class="no-border" href="#legende-sp-<?= trim($sps[0]) ?>">*</a>
 					</span>
 				<?php endif; ?>

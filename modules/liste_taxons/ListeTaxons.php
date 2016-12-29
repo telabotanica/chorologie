@@ -75,6 +75,8 @@ class ListeTaxons extends ModuleControleur {
 			$parametresUtilises['ordre'],
 			$this->proteges
 		);
+		//echo "<pre>"; var_dump($taxons); echo "</pre>";
+		//exit;
 		
 		// Pagination
 		$donnees['nombre'] = min($taxons['entete']['limite'], $taxons['entete']['total']);
@@ -112,7 +114,15 @@ class ListeTaxons extends ModuleControleur {
 				$donnees['taxons'][$k]['nom_commun'] = $nomCommun;
 			}
 			if ($taxon['statuts_protection'] != null) {
-				$statutsProt = explode(',', $taxon['statuts_protection']);
+				// eFlore renvoie un tableau, alors que Gentiana renvoie une
+				// liste séparée par des virgules @TODO harmoniser en amont
+				if (is_array($taxon['statuts_protection']) && count($taxon['statuts_protection']) > 0) {
+					foreach ($taxon['statuts_protection'] as $sp) {
+						$statutsProt[] = $sp['zone'];
+					}
+				} else {
+					$statutsProt = explode(',', $taxon['statuts_protection']);
+				}
 				$protections = array_merge($protections, array_map('trim', $statutsProt));
 			}
 		}
@@ -131,20 +141,25 @@ class ListeTaxons extends ModuleControleur {
 			foreach ($abr_statuts as $abr => $exp) {
 				if (preg_match($exp, $prot)) {
 					if (! array_key_exists($prot, $donnees['protection_statuts'])) {
-						// récupération du statut à l'aide du service
-						$url = sprintf($tpl_url_service_statuts, $abr);
-						$statut = $this->conteneur->getRestClient()->consulter($url);
-						$statut = json_decode($statut, true);
 						$description = '';
 						$intitule = '';
-						if (! empty($statut['resultat'])) {
-							if (! empty($statut['resultat']['intitule'])) {
-								$intitule = $statut['resultat']['intitule'];
-								$description .= $intitule;
-							}
-							if ($description != '') $description .= '. ';
-							if (! empty($statut['resultat']['description'])) {
-								$description .= $statut['resultat']['description'];
+						// récupération du texte à l'aide du service
+						// Pour eFlore le service n'est pas (encore) compatible,
+						// on laisse le template d'URL vide dans la conf et on
+						// fait l'impasse sur ces infos
+						if (! empty($tpl_url_service_statuts)) {
+							$url = sprintf($tpl_url_service_statuts, $abr);
+							$statut = $this->conteneur->getRestClient()->consulter($url);
+							$statut = json_decode($statut, true);
+							if (! empty($statut['resultat'])) {
+								if (! empty($statut['resultat']['intitule'])) {
+									$intitule = $statut['resultat']['intitule'];
+									$description .= $intitule;
+								}
+								if ($description != '') $description .= '. ';
+								if (! empty($statut['resultat']['description'])) {
+									$description .= $statut['resultat']['description'];
+								}
 							}
 						}
 						$donnees['protection_statuts'][$prot] = array(
@@ -159,18 +174,23 @@ class ListeTaxons extends ModuleControleur {
 			foreach ($abr_textes as $abr => $exp) {
 				if (preg_match($exp, $prot)) {
 					if (! array_key_exists($prot, $donnees['protection_textes'])) {
-						// récupération du texte à l'aide du service
-						$url = sprintf($tpl_url_service_textes, $abr);
-						$texte = $this->conteneur->getRestClient()->consulter($url);
-						$texte = json_decode($texte, true);
 						$description = '';
-						if (! empty($texte['resultat'])) {
-							if (! empty($texte['resultat']['intitule'])) {
-								$description .= $texte['resultat']['intitule'];
-							}
-							if ($description != '') $description .= '. ';
-							if (! empty($texte['resultat']['url'])) {
-								$description .= '<a target="_blank" href="' . $texte['resultat']['url'] . '">' . $texte['resultat']['url'] . '</a>';
+						// récupération du texte à l'aide du service
+						// Pour eFlore le service n'est pas (encore) compatible,
+						// on laisse le template d'URL vide dans la conf et on
+						// fait l'impasse sur ces infos
+						if (! empty($tpl_url_service_textes)) {
+							$url = sprintf($tpl_url_service_textes, $abr);
+							$texte = $this->conteneur->getRestClient()->consulter($url);
+							$texte = json_decode($texte, true);
+							if (! empty($texte['resultat'])) {
+								if (! empty($texte['resultat']['intitule'])) {
+									$description .= $texte['resultat']['intitule'];
+								}
+								if ($description != '') $description .= '. ';
+								if (! empty($texte['resultat']['url'])) {
+									$description .= '<a target="_blank" href="' . $texte['resultat']['url'] . '">' . $texte['resultat']['url'] . '</a>';
+								}
 							}
 						}
 						$donnees['protection_textes'][$prot] = array(
